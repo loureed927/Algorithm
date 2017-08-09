@@ -5,6 +5,8 @@
 template<class RandomAccessIterator>
 void InsertionSort(RandomAccessIterator first, RandomAccessIterator last)
 {
+    /*
+    // Solution 1
     // assume we have a sorted cards
     // how to build container of data type from input interator
     std::vector<int> sorted;
@@ -36,6 +38,16 @@ void InsertionSort(RandomAccessIterator first, RandomAccessIterator last)
     for (auto j = sorted.begin(); j != sorted.end(); j++)
     {
         *(first++) = *j;
+    }
+    */
+
+    // solution using book example
+    for (auto i = first + 1; i != last; i++)
+    {
+        for (auto j = i; j != first && *j < *(j - 1); j--)
+        {
+            std::swap(*j, *(j-1));
+        }
     }
 }
 
