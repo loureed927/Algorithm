@@ -1,10 +1,12 @@
-﻿生成启动时间为 2017/8/10 0:05:12。
+﻿生成启动时间为 2017/8/10 1:32:02。
      1>项目“D:\projects\Algorithms\Algorithms\Algorithms.vcxproj”在节点 2 上(Build 个目标)。
-     1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\projects\Algorithms\Debug\Sort.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\projects\Algorithms\Debug\Sort.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\projects\Algorithms\Debug\Sort.lib" /MACHINE:X86 Debug\test.obj
-         Algorithms.vcxproj -> D:\projects\Algorithms\Debug\Sort.exe
-     1>已完成生成项目“D:\projects\Algorithms\Algorithms\Algorithms.vcxproj”(Build 个目标)的操作。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Sort\test.cpp
+         test.cpp
+     1>d:\projects\algorithms\algorithms\sort\test.cpp(37): error C2440: “初始化”: 无法从“char”转换为“std::string”
+                 无构造函数可以接受源类型，或构造函数重载决策不明确
+     1>已完成生成项目“D:\projects\Algorithms\Algorithms\Algorithms.vcxproj”(Build 个目标)的操作 - 失败。
 
-生成成功。
+生成失败。
 
-已用时间 00:00:00.46
+已用时间 00:00:00.49

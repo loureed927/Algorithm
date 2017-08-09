@@ -22,6 +22,7 @@ bool isSorted(T t)
 template<class T>
 void show(T t)
 {
+    // there is bug to print string!!
     for (auto i = t.begin(); i != t.end(); i++)
     {
         std::cout << *i << ' ';
@@ -31,21 +32,20 @@ void show(T t)
 
 int main()
 {
-    std::vector<int> testData;
-    testData.push_back(5);
-    testData.push_back(4);
-    testData.push_back(7);
-    testData.push_back(6);
-    testData.push_back(3);
-    testData.push_back(1);
+    int array[] = { 5, 4, 7, 6, 3, 1 };
+    std::vector<int> testData(array, array + 6);
+
+    std::string str[] = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
+    std::vector<std::string> testData2(str, str + 11);
+
 
     //SelectionSort(testData.begin(), testData.end());
 
-    InsertionSort(testData.begin(), testData.end());
+    InsertionSort(testData2.begin(), testData2.end());
 
-    assert(isSorted(testData));
+    assert(isSorted(testData2));
 
-    show(testData);
+    show(testData2);
 
 }
 
