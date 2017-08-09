@@ -1,7 +1,33 @@
 #include <iostream>
 #include <vector>
+#include <assert.h>
 #include "SelectionSort.h"
 #include "InsertionSort.h"
+
+// Test array entries are in order.
+template<class T>
+bool isSorted(T t)
+{
+    // note iterator should keep valid to t.end()-1 since we are using *(i+1) for comparison.
+    for (auto i = t.begin(); i != t.end() -1; i++)
+    {
+        if (*i > *(i + 1))
+            return false;
+    }
+
+    return true;
+}
+
+// Print the array.
+template<class T>
+void show(T t)
+{
+    for (auto i = t.begin(); i != t.end(); i++)
+    {
+        std::cout << *i << ' ';
+    }
+    std::cout << "\n";
+}
 
 int main()
 {
@@ -16,6 +42,10 @@ int main()
     //SelectionSort(testData.begin(), testData.end());
 
     InsertionSort(testData.begin(), testData.end());
+
+    assert(isSorted(testData));
+
+    show(testData);
 
 }
 
