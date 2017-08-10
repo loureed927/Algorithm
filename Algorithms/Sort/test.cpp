@@ -1,6 +1,11 @@
+//**************************************************************
+//          main test routine for test sort algorithms
+//**************************************************************
+
 #include <iostream>
 #include <vector>
 #include <assert.h>
+#include <string> // need include this for string op << usage in show.
 #include "SelectionSort.h"
 #include "InsertionSort.h"
 
@@ -32,20 +37,20 @@ void show(T t)
 
 int main()
 {
-    int array[] = { 5, 4, 7, 6, 3, 1 };
-    std::vector<int> testData(array, array + 6);
+    //int array[] = { 5, 4, 7, 6, 3, 1 };
+    //std::vector<int> testData(array, array + 6);
 
     std::string str[] = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
-    std::vector<std::string> testData2(str, str + 11);
+    std::vector<std::string> testData(str, str + 11);
 
 
     //SelectionSort(testData.begin(), testData.end());
 
-    InsertionSort(testData2.begin(), testData2.end());
+    InsertionSort(testData.begin(), testData.end());
 
-    assert(isSorted(testData2));
+    assert(isSorted(testData));
 
-    show(testData2);
+    show(testData);
 
 }
 
