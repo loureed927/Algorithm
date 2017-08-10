@@ -8,6 +8,7 @@
 #include <string> // need include this for string op << usage in show.
 #include "SelectionSort.h"
 #include "InsertionSort.h"
+#include "ShellSort.h"
 
 // Test array entries are in order.
 template<class T>
@@ -27,7 +28,6 @@ bool isSorted(T t)
 template<class T>
 void show(T t)
 {
-    // there is bug to print string!!
     for (auto i = t.begin(); i != t.end(); i++)
     {
         std::cout << *i << ' ';
@@ -43,14 +43,13 @@ int main()
     std::string str[] = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
     std::vector<std::string> testData(str, str + 11);
 
-
+    // elementary sorts
     //SelectionSort(testData.begin(), testData.end());
+    //InsertionSort(testData.begin(), testData.end());
+    ShellSort(testData.begin(), testData.end());
 
-    InsertionSort(testData.begin(), testData.end());
-
+    // validate and print result
     assert(isSorted(testData));
-
     show(testData);
-
 }
 
