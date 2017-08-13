@@ -24,6 +24,9 @@
     <ClInclude Include="Sort\ShellSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sort\MergeSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sort\test.cpp">
