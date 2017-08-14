@@ -9,6 +9,7 @@
 #include "SelectionSort.h"
 #include "InsertionSort.h"
 #include "ShellSort.h"
+#include "MergeSort.h"
 
 // Test array entries are in order.
 template<class T>
@@ -37,16 +38,17 @@ void show(T t)
 
 int main()
 {
-    //int array[] = { 5, 4, 7, 6, 3, 1 };
-    //std::vector<int> testData(array, array + 6);
+    int array[] = { 5, 4, 7, 6, 3, 1 };
+    std::vector<int> testData(array, array + 6);
 
-    std::string str[] = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
-    std::vector<std::string> testData(str, str + 11);
+    //std::string str[] = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
+    //std::vector<std::string> testData(str, str + 11);
 
     // elementary sorts
     //SelectionSort(testData.begin(), testData.end());
     //InsertionSort(testData.begin(), testData.end());
-    ShellSort(testData.begin(), testData.end());
+    //ShellSort(testData.begin(), testData.end());
+    MergeSortTD(testData, 0, testData.size()-1);
 
     // validate and print result
     assert(isSorted(testData));
