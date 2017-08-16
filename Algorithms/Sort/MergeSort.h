@@ -1,5 +1,5 @@
 //**************************************************************
-//          shell sort
+//          merge sort
 //**************************************************************
 
 using namespace std;
@@ -7,27 +7,31 @@ using namespace std;
 template<class T>
 void Merge(vector<T>& t, int lo, int mid, int hi)
 {
-    ////merge subarrays t[lo,mid] and t[mid, hi] into a single ordered array.
-    //vector<T> aux;
+/*
+    //merge subarrays t[lo,mid] and t[mid, hi] into a single ordered array.
+    vector<T> aux;
 
-    //// copy original elements from t to aux
-    //for (int k = lo; k <= hi; k++)
-    //{
-    //    aux.push_back(t[k]);
-    //}
+    // copy original elements from t to aux
+    // aux is partial of original array, this is incorrect
+    for (int k = lo; k <= hi; k++)
+    {
+        aux.push_back(t[k]);
+    }
+*/
 
-    ////merge subarrays t[lo,mid] and t[mid, hi] into a single ordered array.
-    //vector<T> aux;
-    //aux.reserve(t.size());
+/*
+    //merge subarrays t[lo,mid] and t[mid, hi] into a single ordered array.
+    vector<T> aux;
+    aux.reserve(t.size());
 
-    //// copy original elements from t to aux
-    //// copy vector cannot use operator =
-    //// Note we have allocate size of t for aux, and copy element needed to correct index.
-    //for (int k = lo; k <= hi; k++)
-    //{
-    //    aux[k] = t[k];
-    //}
-
+    // copy original elements from t to aux
+    // copy vector cannot use operator =
+    // Note we have allocate size of t for aux, and copy element needed to correct index.
+    for (int k = lo; k <= hi; k++)
+    {
+        aux[k] = t[k];
+    }
+*/
     vector<T> aux(t);
 
     // merge two subarrays into one
@@ -49,7 +53,7 @@ void Merge(vector<T>& t, int lo, int mid, int hi)
 template<class T>
 void MergeSortTD(vector<T>& t, int lo, int hi)
 {
-    /*
+/*
     // Attempt one:
     // this implementation will lead endless loop
     // trace::
@@ -71,20 +75,37 @@ void MergeSortTD(vector<T>& t, int lo, int hi)
 
     // Now we have sorted half arrays, do the merge
     Merge(t, lo, mid, hi);
-    */
+*/
 
+/*
+    // Attempt two(work):
     int mid = (lo + hi) / 2;
 
-    while (lo + 1 < hi)
+    bool needMergeTop = false;
+
+    while (lo + 1 < hi && !needMergeTop)
     {
         // sort first and second half of top array, down to the minimal array.
         MergeSortTD(t, lo, mid);
         MergeSortTD(t, mid + 1, hi);
 
         // when lower level recursive ended, how to back to higher level?
+        // use a bool to indicate subarrays are sorted and ready for merge them.
+        needMergeTop = true;
     }
 
     // Now we have sorted half arrays, do the merge
+    Merge(t, lo, mid, hi);
+*/
+
+    // solution from book
+    if (hi <= lo)
+        return;
+
+    int mid = (lo + hi) / 2;
+
+    MergeSortTD(t, lo, mid);
+    MergeSortTD(t, mid + 1, hi);
     Merge(t, lo, mid, hi);
 }
 
