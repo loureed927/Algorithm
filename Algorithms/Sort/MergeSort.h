@@ -109,8 +109,27 @@ void MergeSortTD(vector<T>& t, int lo, int hi)
     Merge(t, lo, mid, hi);
 }
 
-void MergeSortBU()
+template<class T>
+void MergeSortBU(vector<T>& t, int lo, int hi)
 {
+/*
+    // Attempt one
+    static int sz = 1;// sz = 1, 2, 4, 8...
+
+    if (sz > (hi - lo))
+        return;
+
+    int num = (hi - lo) / sz;
+    // Merge subarrays of same size in one pass.
+    for (int i = lo; i < num; i = i + sz)
+    {
+        Merge(t, i, i + sz / 2, i + sz);
+    }
+
+    sz = sz * 2;
+    MergeSortBU(t, lo, hi);
+*/
+
 
 }
 

@@ -48,7 +48,8 @@ int main()
     //SelectionSort(testData.begin(), testData.end());
     //InsertionSort(testData.begin(), testData.end());
     //ShellSort(testData.begin(), testData.end());
-    MergeSortTD(testData, 0, testData.size()-1);
+    //MergeSortTD(testData, 0, testData.size()-1);
+    MergeSortBU(testData, 0, testData.size() - 1);
 
     // validate and print result
     assert(isSorted(testData));
