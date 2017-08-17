@@ -130,6 +130,37 @@ void MergeSortBU(vector<T>& t, int lo, int hi)
     MergeSortBU(t, lo, hi);
 */
 
+    // same size arrary starts from 1
+    static int sz = 1;// sz = 1, 2, 4, 8...
 
+    // if sz larger than overall element number, then no need to sort.
+    if (sz >= (hi - lo))
+        return;
+
+    // Merge subarrays of same size in one pass.
+    for (int i = lo; i <= hi; i = i + 2 * sz)
+    {
+        // if last subarrays have same size < sz, also need to merge it.
+        int hs = i + 2 * sz - 1;
+        if (hs > hi)
+        {
+            hs = hi;
+        }
+
+        int mid = (i + hs) / 2;
+        // Note: Merge treats [io, mid] and [mid+1, hi] as two sorte subarray,
+        // if hs was adjusted for hs>hi, then mid should be adjusted also.
+        // make mid a marker for two sorted subarrays.
+        if (2 * sz > hi)
+        {
+            mid = sz - 1;
+        }
+
+        // should not write mid = i+sz-1/2, 1/2 will resolve to 0
+        Merge(t, i, mid, hs);
+    }
+
+    sz = sz * 2;
+    MergeSortBU(t, lo, hi);
 }
 
