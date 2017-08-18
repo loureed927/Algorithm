@@ -1,6 +1,7 @@
 //**************************************************************
 //          merge sort
 //**************************************************************
+#include<algorithm>
 
 using namespace std;
 // Abstract in-place merge
@@ -130,6 +131,8 @@ void MergeSortBU(vector<T>& t, int lo, int hi)
     MergeSortBU(t, lo, hi);
 */
 
+/*
+    // Attempt two(work)
     // same size arrary starts from 1
     static int sz = 1;// sz = 1, 2, 4, 8...
 
@@ -148,8 +151,8 @@ void MergeSortBU(vector<T>& t, int lo, int hi)
         }
 
         int mid = (i + hs) / 2;
-        // Note: Merge treats [io, mid] and [mid+1, hi] as two sorte subarray,
-        // if hs was adjusted for hs>hi, then mid should be adjusted also.
+        // Note: Merge treats [io, mid] and [mid+1, hi] as two sorted subarray,
+        // if this was last merge, then mid may need adjust also.
         // make mid a marker for two sorted subarrays.
         if (2 * sz > hi)
         {
@@ -162,5 +165,19 @@ void MergeSortBU(vector<T>& t, int lo, int hi)
 
     sz = sz * 2;
     MergeSortBU(t, lo, hi);
+*/
+
+    // solution from book
+    int length = hi - lo + 1;
+    // sz stands for length of current sorted subarrays, it starts with 1, no larger than overall length.
+    for (int sz = 1; sz < length; sz = 2 * sz)
+    {
+        for (int i = 0; i + sz < length; i = i + 2 * sz)
+        {
+            // for subarray sz, i+sz-1 stands for mid, i+2*sz-1 stands for hs
+            int hs = std::min(i + 2 * sz - 1, length - 1);
+            Merge(t, i, i + sz - 1, hs);
+        }
+    }
 }
 
