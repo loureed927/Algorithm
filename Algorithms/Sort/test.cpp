@@ -10,6 +10,7 @@
 #include "InsertionSort.h"
 #include "ShellSort.h"
 #include "MergeSort.h"
+#include "QuickSort.h"
 
 // Test array entries are in order.
 template<class T>
@@ -48,8 +49,15 @@ int main()
     //SelectionSort(testData.begin(), testData.end());
     //InsertionSort(testData.begin(), testData.end());
     //ShellSort(testData.begin(), testData.end());
+
+    // merge sort
     //MergeSortTD(testData, 0, testData.size()-1);
-    MergeSortBU(testData, 0, testData.size() - 1);
+    //MergeSortBU(testData, 0, testData.size() - 1);
+
+    // quick sort
+    std::string str[] = { "K", "R", "A", "T", "E", "L", "E", "P", "U", "I", "M", "Q", "C", "X", "O", "S" };
+    std::vector<std::string> testDataQ(str, str + 15);
+    QuickSort(testDataQ, 0, testDataQ.size() - 1);
 
     // validate and print result
     assert(isSorted(testData));
