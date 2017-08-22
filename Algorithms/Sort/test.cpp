@@ -60,7 +60,7 @@ int main()
     QuickSort(testDataQ, 0, testDataQ.size() - 1);
 
     // validate and print result
-    assert(isSorted(testData));
-    show(testData);
+    assert(isSorted(testDataQ));
+    show(testDataQ);
 }
 

@@ -38,7 +38,7 @@ int Partition(vector<T>& t, int lo, int hi)
     return j
 */
 
-/*   Attempt one(failed to handle max partition key)
+/*   Attempt two(failed to handle max partition key)
     // make postion j point to lo's element.
     int j = lo;
 
@@ -81,6 +81,10 @@ int Partition(vector<T>& t, int lo, int hi)
     int head = lo + 1;
     int tail = hi;
 
+    // head could out of range.
+    if (head > tail)
+        return j;
+
     while (head <= tail)
     {
         // only increase head if its key smaller than partition key
@@ -118,14 +122,23 @@ int Partition(vector<T>& t, int lo, int hi)
 template<class T>
 void QuickSort(vector<T>& t, int lo, int hi)
 {
+/*
+    // Attempt one
     int j = Partition(t, lo, hi);
-    while (j != lo)
-    {
-        j = Partition(t, lo, j-1);
-    }
-    while (j != lo)
-    {
-        j = Partition(t, j + 1, hi);
-    }
+
+    if (j <= lo || j >= hi)
+        return;
+
+    QuickSort(t, lo, j - 1);
+    QuickSort(t, j + 1, hi);
+*/
+
+    int j = Partition(t, lo, hi);
+
+    if (j<lo ||j>hi)
+        return;
+
+    QuickSort(t, lo, j - 1);
+    QuickSort(t, j + 1, hi);
 }
 
