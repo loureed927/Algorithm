@@ -56,7 +56,7 @@ int main()
 
     // quick sort
     std::string str[] = { "K", "R", "A", "T", "E", "L", "E", "P", "U", "I", "M", "Q", "C", "X", "O", "S" };
-    std::vector<std::string> testDataQ(str, str + 15);
+    std::vector<std::string> testDataQ(str, str + 16);
     QuickSort(testDataQ, 0, testDataQ.size() - 1);
 
     // validate and print result
