@@ -12,7 +12,7 @@ public:
         a = new T[cap];
     };
 
-    ~FixedCapacityStack();
+    ~FixedCapacityStack(){};
 
     bool isEmpty()
     {
@@ -35,7 +35,7 @@ public:
     };
 
 private:
-    T[] a;
+    T* a;
     int num;
 };
 
