@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algorithms", "Algorithms\Algorithms.vcxproj", "{C564558D-39E1-47C3-A269-E29EF1086BF1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sort", "Algorithms\Algorithms.vcxproj", "{C564558D-39E1-47C3-A269-E29EF1086BF1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fundamentals", "Algorithms\Fundamentals\Fundamentals.vcxproj", "{E198E257-92D1-4B69-B575-60BC19967B4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C564558D-39E1-47C3-A269-E29EF1086BF1}.Debug|Win32.Build.0 = Debug|Win32
 		{C564558D-39E1-47C3-A269-E29EF1086BF1}.Release|Win32.ActiveCfg = Release|Win32
 		{C564558D-39E1-47C3-A269-E29EF1086BF1}.Release|Win32.Build.0 = Release|Win32
+		{E198E257-92D1-4B69-B575-60BC19967B4A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E198E257-92D1-4B69-B575-60BC19967B4A}.Debug|Win32.Build.0 = Debug|Win32
+		{E198E257-92D1-4B69-B575-60BC19967B4A}.Release|Win32.ActiveCfg = Release|Win32
+		{E198E257-92D1-4B69-B575-60BC19967B4A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
