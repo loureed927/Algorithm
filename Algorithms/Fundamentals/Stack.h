@@ -12,7 +12,10 @@ public:
         a = new T[cap];
     };
 
-    ~FixedCapacityStack(){};
+    ~FixedCapacityStack()
+    {
+        delete[] a;
+    };
 
     bool isEmpty()
     {
@@ -26,12 +29,12 @@ public:
 
     void push(T item)
     {
-        
+        a[num++] = item;
     };
 
     T pop()
     {
-
+        return a[--num];
     };
 
 private:
