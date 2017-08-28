@@ -53,7 +53,8 @@ class ResizingArrayStack
 public:
     ResizingArrayStack()
     {
-        a = new T[1];
+        length = 1;
+        a = new T[length];
         num = 0;
     };
 
@@ -75,7 +76,7 @@ public:
     void push(T item)
     {
         // if array is full, allocate double size.
-        if (a->size() == num)
+        if (length == num)
         {
             resize(2 * num);
         }
@@ -87,9 +88,9 @@ public:
     {
         T t = a[--num];
 
-        if (num == a->size() / 4)
+        if (num > 0 && num == length / 4)
         {
-            resize(a->size() / 2);
+            resize(length / 2);
         }
 
         return t;
@@ -105,11 +106,16 @@ private:
             temp[i] = a[i];
         }
 
+        // need to free original memory of array, and point it to new memory "temp".
+        delete[] a;
+
         a = temp;
+        length = max;
     };
 
     T* a;
-    int num;
+    int length; // array length
+    int num;    // element number
 };
 
 
