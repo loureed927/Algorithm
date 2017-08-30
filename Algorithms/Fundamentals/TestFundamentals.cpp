@@ -14,7 +14,8 @@ using namespace std;
 int main()
 {
     //FixedCapacityStack<string> stack(100);
-    ResizingArrayStack<string> stack;
+    //ResizingArrayStack<string> stack;
+    LinkStack<string> stack;
 
     ifstream inputFile("tobe.txt");
     string line, word;
