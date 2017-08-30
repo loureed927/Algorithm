@@ -73,7 +73,7 @@ public:
     int size()
     {
         return num;
-    };
+    }
 
     void push(T item)
     {
@@ -84,7 +84,7 @@ public:
         }
 
         a[num++] = item;
-    };
+    }
 
     T pop()
     {
@@ -96,7 +96,7 @@ public:
         }
 
         return t;
-    };
+    }
 
 private:
 
@@ -113,7 +113,7 @@ private:
 
         a = temp;
         length = max;
-    };
+    }
 
     T* a;
     int length; // array length
@@ -121,30 +121,30 @@ private:
 };
 
 
-// Link based stack
+// Linked list based stack
 // Attempt 1.
 // there are 2 issues of this implementation:
 // 1. Does not delete orphan node object;
 // 2. loop link to get size, an alternative is to keep a int to record link size when push&pop.
 /*
 template<typename T>
-class LinkStack
+class LinkedListStack
 {
 public:
-    LinkStack()
+    LinkedListStack()
     {
         first = nullptr;
-    };
+    }
 
-    ~LinkStack()
+    ~LinkedListStack()
     {
 
-    };
+    }
 
     bool isEmpty()
     {
         return first == nullptr;
-    };
+    }
 
     int size()
     {
@@ -155,7 +155,7 @@ public:
             num++;
         }
         return num;
-    };
+    }
 
     void push(T item)
     {
@@ -165,7 +165,7 @@ public:
         newItem->next = first;
         // update link header.
         first = newItem;
-    };
+    }
 
     T pop()
     {
@@ -173,7 +173,7 @@ public:
         // remove item afront.
         first = first->next;
         return deletedItem;
-    };
+    }
 
 private:
 
@@ -181,7 +181,7 @@ private:
     {
         T elem;
         Node* next;
-    };
+    }
 
     Node* first; // link header
 };
@@ -190,14 +190,14 @@ private:
 // Attempt 2: using smart pointer for Node object and bookkeeping link size.
 // Note here using shared_ptr instead of unique_ptr since we need copy operation.
 template<typename T>
-class LinkStack
+class LinkedListStack
 {
 public:
-    LinkStack() :first(nullptr), num(0)
+    LinkedListStack() :first(nullptr), num(0)
     {
     }
 
-    ~LinkStack()
+    ~LinkedListStack()
     {
     }
 
@@ -214,7 +214,7 @@ public:
     void push(T item)
     {
         // insert new item afront.
-        std::shared_ptr<Node> newItem;
+        std::shared_ptr<Node> newItem = std::make_shared<Node>();
         newItem->elem = item;
         newItem->next = first;
         // update link header.
