@@ -6,49 +6,81 @@ template<typename T>
 class MaxPQ
 {
 public:
-    MaxPQ(int max){}
-
-    ~MaxPQ(){}
-
-    void Insert(Key v)
+    MaxPQ(int max) :N(0)
     {
-
+        pq = new T[max + 1];
     }
 
-    Key Max()
+    ~MaxPQ()
     {
-
+        delete[] pq;
     }
 
-    Key DeleteMax()
+    void Insert(T t)
     {
+        pq[++N] = t;
+        swim(N);
+    }
 
+    T Max()
+    {
+        return pq[1];
+    }
+
+    T DeleteMax()
+    {
+        T max = pq[1];
+        std::swap(pq[1], pq[N--]);
+        pq[N + 1] = nullptr;
+        sink(1);
+        return max;
     }
 
     bool IsEmpty()
     {
-
+        return N == 0;
     }
 
     int Size()
     {
-
+        return N;
     }
 
 private:
 
     void swim(int k)
     {
-
+        // if child is larger than parent, swim child to parent level.
+        while (k > 1 && pq[k] > pq[k / 2])
+        {
+            std::swap(pq[k], pq[k / 2]);
+            k = k / 2;
+        }
     }
 
     void sink(int k)
     {
+        // if parent is less than child, sink parent to child level.
+        while (k < N)
+        {
+            if (pq[k]>=pq[2k] || pq[k]>=pq[2k+1])
+                break;
 
+            if (pq[k] < pq[2k])
+            {
+                std::swap(pq[k], pq[2k]);
+                k = 2k;
+            }
+            else if (pq[k] < pq[2k + 1])
+            {
+                std::swap(pq[k], pq[2k + 1]);
+                k = 2k + 1;
+            }
+        }
     }
 
-    T[num] pq;
-    int num;
+    T* pq; // pq is a fixed size array.
+    int N; // all elements are stored in pq[1...N], pq[0] unused.
 };
 
 
