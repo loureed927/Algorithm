@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1-Fundamentals", "Algorithms\Fundamentals\Fundamentals.vcxproj", "{E198E257-92D1-4B69-B575-60BC19967B4A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1-Fundamentals", "Algorithms\1-Fundamentals\1-Fundamentals.vcxproj", "{F7DAAFDB-B391-41F7-893E-F19BC842958C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2-Sort", "Algorithms\Sort\Sort.vcxproj", "{6B755664-8649-4F1C-890D-01AD07A5B701}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2-Sort", "Algorithms\2-Sort\2-Sort.vcxproj", "{6A5EB9FC-D0EE-479E-B95D-86B5FE06773E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3-Search", "Algorithms\Search\Search.vcxproj", "{C97B9A42-9F04-4513-BEA1-24BCB5D0BB3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3-Search", "Algorithms\3-Search\3-Search.vcxproj", "{BC549949-A8EC-4A15-AF91-5C3BC5639545}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4-Graph", "Algorithms\4-Graph\4-Graph.vcxproj", "{907346F5-5D0E-461F-BA1F-A1F7FFBD6654}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E198E257-92D1-4B69-B575-60BC19967B4A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E198E257-92D1-4B69-B575-60BC19967B4A}.Debug|Win32.Build.0 = Debug|Win32
-		{E198E257-92D1-4B69-B575-60BC19967B4A}.Release|Win32.ActiveCfg = Release|Win32
-		{E198E257-92D1-4B69-B575-60BC19967B4A}.Release|Win32.Build.0 = Release|Win32
-		{6B755664-8649-4F1C-890D-01AD07A5B701}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6B755664-8649-4F1C-890D-01AD07A5B701}.Debug|Win32.Build.0 = Debug|Win32
-		{6B755664-8649-4F1C-890D-01AD07A5B701}.Release|Win32.ActiveCfg = Release|Win32
-		{6B755664-8649-4F1C-890D-01AD07A5B701}.Release|Win32.Build.0 = Release|Win32
-		{C97B9A42-9F04-4513-BEA1-24BCB5D0BB3A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C97B9A42-9F04-4513-BEA1-24BCB5D0BB3A}.Debug|Win32.Build.0 = Debug|Win32
-		{C97B9A42-9F04-4513-BEA1-24BCB5D0BB3A}.Release|Win32.ActiveCfg = Release|Win32
-		{C97B9A42-9F04-4513-BEA1-24BCB5D0BB3A}.Release|Win32.Build.0 = Release|Win32
+		{F7DAAFDB-B391-41F7-893E-F19BC842958C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F7DAAFDB-B391-41F7-893E-F19BC842958C}.Debug|Win32.Build.0 = Debug|Win32
+		{F7DAAFDB-B391-41F7-893E-F19BC842958C}.Release|Win32.ActiveCfg = Release|Win32
+		{F7DAAFDB-B391-41F7-893E-F19BC842958C}.Release|Win32.Build.0 = Release|Win32
+		{6A5EB9FC-D0EE-479E-B95D-86B5FE06773E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A5EB9FC-D0EE-479E-B95D-86B5FE06773E}.Debug|Win32.Build.0 = Debug|Win32
+		{6A5EB9FC-D0EE-479E-B95D-86B5FE06773E}.Release|Win32.ActiveCfg = Release|Win32
+		{6A5EB9FC-D0EE-479E-B95D-86B5FE06773E}.Release|Win32.Build.0 = Release|Win32
+		{BC549949-A8EC-4A15-AF91-5C3BC5639545}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BC549949-A8EC-4A15-AF91-5C3BC5639545}.Debug|Win32.Build.0 = Debug|Win32
+		{BC549949-A8EC-4A15-AF91-5C3BC5639545}.Release|Win32.ActiveCfg = Release|Win32
+		{BC549949-A8EC-4A15-AF91-5C3BC5639545}.Release|Win32.Build.0 = Release|Win32
+		{907346F5-5D0E-461F-BA1F-A1F7FFBD6654}.Debug|Win32.ActiveCfg = Debug|Win32
+		{907346F5-5D0E-461F-BA1F-A1F7FFBD6654}.Debug|Win32.Build.0 = Debug|Win32
+		{907346F5-5D0E-461F-BA1F-A1F7FFBD6654}.Release|Win32.ActiveCfg = Release|Win32
+		{907346F5-5D0E-461F-BA1F-A1F7FFBD6654}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
