@@ -27,6 +27,7 @@ public:
         if (key == nullptr)
             throw(key);
 
+        // ensure no key in the table is associated with null.
         if (val == nullptr)
         {
             Delete(key);
@@ -66,9 +67,27 @@ public:
         return nullptr;
     }
 
+    // use eager deletion here.
+    // lazy deletion will put(key, null), and remove it later.
     void Delete(Key key)
     {
+        // key must not be null.
+        if (key == nullptr)
+            throw(key);
 
+        // loop the linked list to find Node with input key.
+        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
+        {
+            std::shared_ptr<Node> deleteNode = i->next;
+            if (deleteNode->key == key)
+            {
+                // remove it from linked list.
+                i->next = deleteNode->next;
+                deleteNode->key = nullptr;
+                deleteNode->val = nullptr;
+                deleteNode->next = nullptr;
+            }
+        }
     }
 
     bool Contains(Key key)
