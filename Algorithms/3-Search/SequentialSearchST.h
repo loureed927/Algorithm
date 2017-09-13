@@ -23,19 +23,20 @@ public:
 
     void Put(Key key, Value val)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        // key type could be int... which cannot convert with pointer.
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         // ensure no key in the table is associated with null.
-        if (val == nullptr)
+        if ((void*)val == nullptr)
         {
             Delete(key);
             return;
         }
 
         // if key does not exist, put it the header of linked list.
-        if (Get(key) == nullptr)
+        if ((void*)Get(key) == nullptr)
         {
             std::shared_ptr<Node> newfirst = std::make_shared<Node>(key, val, first);
             first = newfirst;
@@ -53,9 +54,9 @@ public:
 
     Value Get(Key key)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         // loop the linked list to find Node with input key, return corresponding value.
         for (std::shared_ptr<Node> i = first; i != nullptr && i->key == key; i = i->next)
@@ -64,16 +65,17 @@ public:
         }
 
         // return null if not found.
-        return nullptr;
+        //return nullptr;
+        return -1;
     }
 
     // use eager deletion here.
     // lazy deletion will put(key, null), and remove it later.
     void Delete(Key key)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         // loop the linked list to find Node with input key.
         for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
@@ -83,18 +85,19 @@ public:
             {
                 // remove it from linked list.
                 i->next = deleteNode->next;
-                deleteNode->key = nullptr;
-                deleteNode->val = nullptr;
-                deleteNode->next = nullptr;
+                //deleteNode->key = nullptr;
+                //deleteNode->val = nullptr;
+                //deleteNode->next = nullptr;
+                num--;
             }
         }
     }
 
     bool Contains(Key key)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         return Get(key) != nullptr;
     }
@@ -118,7 +121,7 @@ private:
         {
             this->next = next;
         }
-    private:
+
         Key key;
         Value val;
         std::shared_ptr<Node> next;
