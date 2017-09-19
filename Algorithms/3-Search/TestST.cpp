@@ -13,19 +13,20 @@ using namespace std;
 
 int main()
 {
-    SequentialSearchST<string, int*> st;
+    SequentialSearchST<string, index*> st;
 
     ifstream inputFile("tinyST.txt");
     string line, word;
-    static int* i = 0;
+    static int i = 0;
 
     while (getline(inputFile, line))
     {
         istringstream stringIn(line);
         while (stringIn >> word)
         {
-            st.Put(word, i);
-            *i++;
+            index* val = new index(i);
+            st.Put(word, val);
+            i++;
         }
     }
 }

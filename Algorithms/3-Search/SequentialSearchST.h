@@ -7,6 +7,25 @@
 
 #include <memory>
 
+struct intWrapper
+{
+    int value;
+
+    intWrapper(int i)
+    {
+        value = i;
+    }
+
+    operator int() const
+    {
+        return value;
+    }
+};
+typedef intWrapper index;
+
+
+// Key and Value needs to be object in this solution, which is not applicable
+// for the type could be c++ built-in type, like int...
 template<typename Key, typename Value>
 class SequentialSearchST
 {
@@ -23,20 +42,20 @@ public:
 
     void Put(Key key, Value val)
     {
-        // key type could be int... which cannot convert with pointer.
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key type could be string... which cannot compare with nullptr.
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         // ensure no key in the table is associated with null.
-        if ((void*)val == nullptr)
+        if (val == nullptr)
         {
             Delete(key);
             return;
         }
 
         // if key does not exist, put it the header of linked list.
-        if ((void*)Get(key) == nullptr)
+        if (Get(key) == nullptr)
         {
             std::shared_ptr<Node> newfirst = std::make_shared<Node>(key, val, first);
             first = newfirst;
@@ -45,23 +64,30 @@ public:
         else
         {
             // loop the linked list to find Node with input key, update its value then.
-            for (std::shared_ptr<Node> i = first; i != nullptr && i->key == key; i = i->next)
+            // Get already loop the linked list, no need to loop again.
+            for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
             {
-                i->val = val;
+                if (i->key == key)
+                {
+                    i->val = val;
+                }
             }
         }
     }
 
     Value Get(Key key)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         // loop the linked list to find Node with input key, return corresponding value.
-        for (std::shared_ptr<Node> i = first; i != nullptr && i->key == key; i = i->next)
+        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
         {
-            return i->val;
+            if (i->key == key)
+            {
+                return i->val;
+            }
         }
 
         // return null if not found.
@@ -73,9 +99,9 @@ public:
     // lazy deletion will put(key, null), and remove it later.
     void Delete(Key key)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         // loop the linked list to find Node with input key.
         for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
@@ -85,9 +111,6 @@ public:
             {
                 // remove it from linked list.
                 i->next = deleteNode->next;
-                deleteNode->key = nullptr;
-                deleteNode->val = nullptr;
-                deleteNode->next = nullptr;
                 num--;
             }
         }
@@ -95,9 +118,9 @@ public:
 
     bool Contains(Key key)
     {
-        // key must not be null.
-        if (key == nullptr)
-            throw(key);
+        //// key must not be null.
+        //if (key == nullptr)
+        //    throw(key);
 
         return Get(key) != nullptr;
     }
