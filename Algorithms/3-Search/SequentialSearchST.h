@@ -5,6 +5,161 @@
 #ifndef SEQUENTIALSEARCHST_H
 #define SEQUENTIALSEARCHST_H
 
+#include <string>
+#include <memory>
+
+// the class definition for Items that are small records consisting of string key and integer value.
+typedef std::string Key;
+typedef int Value;
+
+static Key nullKey("");
+
+class Item
+{
+    // need to put private member afront.
+private:
+    Key key;
+    Value val;
+
+public:
+    // Item is initialized to be null.
+    Item()
+    {
+        key = nullKey;
+    }
+
+    // easy to construct for client
+    Item(Key k, Value v) :key(k), val(v)
+    {
+    }
+
+    const Key GetKey()
+    {
+        return key;
+    }
+
+    const Value GetValue()
+    {
+        return val;
+    }
+
+    void SetValue(Value v)
+    {
+        val = v;
+    }
+
+    bool IsNull()
+    {
+        return key == nullKey;
+    }
+};
+
+// unordered linked list based sequential search ST
+template<typename Key, typename Item>
+class SequentialSearchST
+{
+public:
+    SequentialSearchST() :first(nullptr), num(0)
+    {
+    }
+
+    ~SequentialSearchST()
+    {
+    }
+
+    void Put(Item item)
+    {
+        // item to be insert should not be null.
+        if (item.IsNull())
+            throw(item);
+
+        // loop the linked list to find Node with same key of input item, update its value then.
+        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
+        {
+            if (i->item.GetKey() == item.GetKey())
+            {
+                i->item.SetValue(item.GetValue());
+                return;
+            }
+        }
+
+        // if not found, insert to header.
+        first = std::make_shared<Node>(item, first);
+        num++;
+    }
+
+    Item Get(Key key)
+    {
+        // loop the linked list to find Node with input key, return corresponding item.
+        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
+        {
+            if (i->item.GetKey() == key)
+            {
+                return i->item;
+            }
+        }
+
+        // return null if not found.
+        return nullItem;
+    }
+
+    // use eager deletion here.
+    void Delete(Item item)
+    {
+        // cannot delete a null item.
+        if (item.IsNull())
+            throw(item);
+
+        // loop the linked list to find Node with same key of input item.
+        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
+        {
+            std::shared_ptr<Node> deleteNode = i->next;
+            if (deleteNode->item.GetKey() == item.GetKey())
+            {
+                // remove it from linked list.
+                i->next = deleteNode->next;
+                num--;
+            }
+        }
+    }
+
+    bool Contains(Key key)
+    {
+        return Get(key) != nullItem;
+    }
+
+    bool IsEmpty()
+    {
+        return Size() == 0;
+    }
+
+    int Size()
+    {
+        return num;
+    }
+
+private:
+    Item nullItem;
+    int num;
+
+    struct Node
+    {
+        Item item;
+        std::shared_ptr<Node> next;
+
+        Node(Item it, std::shared_ptr<Node> nt)
+        {
+            item = it;
+            next = nt;
+        }
+    };
+
+    std::shared_ptr<Node> first;
+};
+
+/*
+// use solution from book cannot deal with generic key/value type very well.
+
 #include <memory>
 
 struct intWrapper
@@ -154,6 +309,7 @@ private:
     std::shared_ptr<Node> first;
     int num;
 };
+*/
 
 #endif
 

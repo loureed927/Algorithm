@@ -13,7 +13,7 @@ using namespace std;
 
 int main()
 {
-    SequentialSearchST<string, index*> st;
+    SequentialSearchST<Key, Item> st;
 
     ifstream inputFile("tinyST.txt");
     string line, word;
@@ -24,9 +24,8 @@ int main()
         istringstream stringIn(line);
         while (stringIn >> word)
         {
-            index* val = new index(i);
-            st.Put(word, val);
-            i++;
+            Item it(word, i++);
+            st.Put(it);
         }
     }
 }
