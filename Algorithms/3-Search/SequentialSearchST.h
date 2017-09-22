@@ -7,6 +7,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 // the class definition for Items that are small records consisting of string key and integer value.
 typedef std::string Key;
@@ -136,6 +137,15 @@ public:
     int Size()
     {
         return num;
+    }
+
+    // access queue contains all keys in ST.
+    void Keys(std::vector<Key>& keyContainer)
+    {
+        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
+        {
+            keyContainer.push_back(i->item.GetKey());
+        }
     }
 
 private:

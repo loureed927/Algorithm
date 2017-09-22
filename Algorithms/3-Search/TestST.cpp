@@ -19,6 +19,7 @@ int main()
     string line, word;
     static int i = 0;
 
+    // populate st.
     while (getline(inputFile, line))
     {
         istringstream stringIn(line);
@@ -27,6 +28,15 @@ int main()
             Item it(word, i++);
             st.Put(it);
         }
+    }
+
+    // show st.
+    std::vector<Key> keyContainer;
+    st.Keys(keyContainer);
+
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
     }
 }
 
