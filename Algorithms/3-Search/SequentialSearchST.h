@@ -145,7 +145,7 @@ public:
         return num;
     }
 
-    // access queue contains all keys in ST.
+    // access vector contains all keys in ST.
     void Keys(std::vector<Key>& keyContainer)
     {
         for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
