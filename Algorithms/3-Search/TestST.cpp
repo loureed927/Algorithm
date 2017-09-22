@@ -34,6 +34,20 @@ int main()
     std::vector<Key> keyContainer;
     st.Keys(keyContainer);
 
+    cout << "sequential table items:" << endl;
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
+    }
+
+    // test delete item from st.
+    Key KeyToDelete("X");
+    st.Delete(KeyToDelete);
+    // output st again.
+    keyContainer.clear();
+    st.Keys(keyContainer);
+
+    cout << "sequential table items after delete key:" << KeyToDelete << endl;
     for (auto k : keyContainer)
     {
         cout << k << ' ' << st.Get(k).GetValue() << endl;

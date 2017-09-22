@@ -68,7 +68,7 @@ public:
     {
     }
 
-    void Put(Item item)
+    void Put(Item& item)
     {
         // item to be insert should not be null.
         if (item.IsNull())
@@ -89,7 +89,7 @@ public:
         num++;
     }
 
-    Item Get(Key key)
+    Item& Get(Key& key)
     {
         // loop the linked list to find Node with input key, return corresponding item.
         for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
@@ -105,26 +105,32 @@ public:
     }
 
     // use eager deletion here.
-    void Delete(Item item)
+    void Delete(Key& key)
     {
-        // cannot delete a null item.
-        if (item.IsNull())
-            throw(item);
+        if (key == nullKey)
+            return;
 
-        // loop the linked list to find Node with same key of input item.
-        for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
-        {
-            std::shared_ptr<Node> deleteNode = i->next;
-            if (deleteNode->item.GetKey() == item.GetKey())
-            {
-                // remove it from linked list.
-                i->next = deleteNode->next;
-                num--;
-            }
-        }
+        Delete(first, key);
+
+        // this way of delete has issue: if first item is to be deleted, the first node is invalid.
+        //// cannot delete a null item.
+        //if (item.IsNull())
+        //    throw(item);
+
+        //// loop the linked list to find Node with same key of input item.
+        //for (std::shared_ptr<Node> i = first; i != nullptr; i = i->next)
+        //{
+        //    std::shared_ptr<Node> deleteNode = i->next;
+        //    if (deleteNode->item.GetKey() == item.GetKey())
+        //    {
+        //        // remove it from linked list.
+        //        i->next = deleteNode->next;
+        //        num--;
+        //    }
+        //}
     }
 
-    bool Contains(Key key)
+    bool Contains(Key& key)
     {
         return Get(key) != nullItem;
     }
@@ -165,6 +171,23 @@ private:
     };
 
     std::shared_ptr<Node> first;
+
+    std::shared_ptr<Node> Delete(std::shared_ptr<Node> node, Key& key)
+    {
+        if (node == nullptr)
+            return nullptr;
+
+        // if found, return node next to the deleted one.
+        if (node->item.GetKey() == key)
+        {
+            num--;
+            return node->next;
+        }
+
+        // recursively find the node and delete it
+        node->next = Delete(node->next, key);
+        return node;
+    }
 };
 
 /*
