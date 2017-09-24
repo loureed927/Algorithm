@@ -5,54 +5,8 @@
 #ifndef BINARYSEARCHST_H
 #define BINARYSEARCHST_H
 
-#include <string>
 #include <vector>
-
-// the class definition for Items that are small records consisting of string key and integer value.
-typedef std::string Key;
-typedef int Value;
-
-static Key nullKey("");
-
-class Item
-{
-    // need to put private member afront.
-private:
-    Key key;
-    Value val;
-
-public:
-    // Item is initialized to be null.
-    Item()
-    {
-        key = nullKey;
-    }
-
-    // easy to construct for client
-    Item(Key k, Value v) :key(k), val(v)
-    {
-    }
-
-    const Key GetKey()
-    {
-        return key;
-    }
-
-    const Value GetValue()
-    {
-        return val;
-    }
-
-    void SetValue(Value v)
-    {
-        val = v;
-    }
-
-    bool IsNull()
-    {
-        return key == nullKey;
-    }
-};
+#include "Item.h"
 
 // ordered array based binary search ST
 template<typename Key, typename Item>
@@ -75,16 +29,14 @@ public:
         if (item.IsNull())
             throw(item);
 
-        Item it = Get(item.GetKey());
+        int i = Rank(item.GetKey());
         // if item key is in st, then update its value.
-        if (it != nullItem)
+        if (i < num && itemArray[i].GetKey() == item.GetKey())
         {
-            it.SetValue(item.GetValue());
+            itemArray[i].SetValue(item.GetValue());
         }
         else// otherwise insert it by order.
         {
-            int i = Rank(item.GetKey());
-
             // for items in [i, num-1], need to move one position backwards.
             // considering keys[0, 1, 3], now insert item key is 2, which rank 2.
             // so j=3,i=2, need to move item[2] which is item[num-1] to item[num].
@@ -118,7 +70,7 @@ public:
 
     void Delete(Key& key)
     {
-        if (Get(key) == nullItem)
+        if (Get(key).IsNull())
             return;
 
         int index = Rank(key);
@@ -156,14 +108,16 @@ public:
             throw(key);
 
         // using recursive binary search.
-        RankRecursion(key, 0, num - 1);
+        return RankRecursion(key, 0, num - 1);
         // using iterative binray search.
-        //RankIteration(key);
+        //return RankIteration(key);
     }
 
     bool Contains(Key& key)
     {
-        return Get(key) != nullItem;
+        // this cannot work since != is not overloaded for class Item.
+        // return Get(key) != nullItem
+        return !Get(key).IsNull();
     }
 
     bool IsEmpty()
@@ -218,7 +172,7 @@ public:
         if (index == num)
             return nullKey;
         else
-            return itemArray[index];
+            return itemArray[index].GetKey();
     }
 
     // Returns the largest key in this symbol table less than or equal to given key.
@@ -282,17 +236,17 @@ private:
     int RankRecursion(Key& key, int lo, int hi)
     {
         if (lo > hi)
-            return;
+            return lo;
 
         int mid = lo + (hi - lo) / 2;
 
         if (key < itemArray[mid].GetKey())
         {
-            RankRecursion(key, lo, mid - 1);
+            return RankRecursion(key, lo, mid - 1);
         }
         else if (key > itemArray[mid].GetKey())
         {
-            RankRecursion(key, mid + 1, hi);
+            return RankRecursion(key, mid + 1, hi);
         }
         else
         {

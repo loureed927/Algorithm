@@ -66,6 +66,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchST.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="SequentialSearchST.h" />
   </ItemGroup>
   <ItemGroup>

@@ -5,55 +5,9 @@
 #ifndef SEQUENTIALSEARCHST_H
 #define SEQUENTIALSEARCHST_H
 
-#include <string>
 #include <memory>
 #include <vector>
-
-// the class definition for Items that are small records consisting of string key and integer value.
-typedef std::string Key;
-typedef int Value;
-
-static Key nullKey("");
-
-class Item
-{
-    // need to put private member afront.
-private:
-    Key key;
-    Value val;
-
-public:
-    // Item is initialized to be null.
-    Item()
-    {
-        key = nullKey;
-    }
-
-    // easy to construct for client
-    Item(Key k, Value v) :key(k), val(v)
-    {
-    }
-
-    const Key GetKey()
-    {
-        return key;
-    }
-
-    const Value GetValue()
-    {
-        return val;
-    }
-
-    void SetValue(Value v)
-    {
-        val = v;
-    }
-
-    bool IsNull()
-    {
-        return key == nullKey;
-    }
-};
+#include "Item.h"
 
 // unordered linked list based sequential search ST
 template<typename Key, typename Item>
@@ -132,7 +86,7 @@ public:
 
     bool Contains(Key& key)
     {
-        return Get(key) != nullItem;
+        return !Get(key).IsNull();
     }
 
     bool IsEmpty()
