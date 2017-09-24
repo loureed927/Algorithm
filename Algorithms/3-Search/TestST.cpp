@@ -109,6 +109,16 @@ void BinarySearchST_TestClient()
     {
         cout << k << ' ' << st.Get(k).GetValue() << endl;
     }
+
+    // test for range output of st
+    keyContainer.clear();
+    Key start("B"), end("N");
+    st.Keys(keyContainer, start, end);
+    cout << "binary search symbol table between" << start << " and " << end << ":" << endl;
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
+    }
 }
 
 int main()
