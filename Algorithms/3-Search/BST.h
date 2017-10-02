@@ -6,11 +6,36 @@
 #define BST_H
 
 #include "Item.h"
+#include <memory>
+#include <vector>
 
 // binary search tree
 template<typename Key, typename Item>
 class BST
 {
+private:
+    Item nullItem;
+
+    // forward declare class Node.
+    class Node;
+    typedef std::shared_ptr<Node> SPNode;
+
+    class Node
+    {
+    public:
+        Node(Item& it, int n) :item(it), num(n)
+        {
+        }
+
+        // make data public member.
+        Item item; // item contains key and value
+        SPNode left; // link to left subtree
+        SPNode right; // link to right subtree
+        int num; // nodes number under this node as root
+    };
+
+    SPNode root; // root of BST
+
 public:
     BST()
     {
@@ -27,13 +52,12 @@ public:
 
     Item& Get(Key& key)
     {
-        return Get(root, key);
+        return Get(key, root);
     }
 
     void Delete(Key& key)
     {
-        if (Get(key).IsNull())
-            return;
+        root = Delete(key, root);
     }
 
     void DeleteMin()
@@ -95,7 +119,7 @@ public:
     // Returns the largest key in this symbol table less than or equal to given key.
     Key& Floor(Key& key)
     {
-        SPNode floorNode = Ceiling(key, root);
+        SPNode floorNode = Floor(key, root);
         if (floorNode == nullptr)
             return nullKey;
         else
@@ -153,7 +177,7 @@ private:
         if (item.IsNull())
             throw(item);
 
-        // if item does not exist in the node
+        // if node is null, create one.
         if (node == nullptr)
         {
             return std::make_shared<Node>(item, 1);
@@ -272,11 +296,11 @@ private:
 
         if (key < node->item.GetKey()) // if key is less than node's key, then floor is in the left subtree.
         {
-            return floor(key, node->left);
+            return Floor(key, node->left);
         }
         else if (key > node->item.GetKey()) // if key is greater than node's key, then floor may in the right subtree.
         {
-            SPNode floorNode = floor(key, node->right);
+            SPNode floorNode = Floor(key, node->right);
             if (floorNode == nullptr)
             {
                 return node;
@@ -295,10 +319,10 @@ private:
     SPNode Select(int k, SPNode node)
     {
         if (k < 0 || k > Size())
-            return nullItem;
+            return nullptr;
 
         if (node == nullptr)
-            return nullItem;
+            return nullptr;
 
         int leftSize = Size(node->left);
 
@@ -435,35 +459,16 @@ private:
             Keys(keyContainer, node->left, lo, hi);
         }
 
-        if (lo < node->item.GetKey() && hi > node->item.GetKey())
+        if (lo <= node->item.GetKey() && hi >= node->item.GetKey())
         {
             keyContainer.push_back(node->item.GetKey());
         }
 
         if (hi > node->item.GetKey())
         {
-            Keys(keyContainer, node, lo, hi);
+            Keys(keyContainer, node->right, lo, hi);
         }
     }
-
-private:
-    Item nullItem;
-
-    typedef std::shared_ptr<Node> SPNode;
-    class Node
-    {
-    public:
-        Node(Item& it, int n) :Item(it), num(n)
-        {
-        }
-    private:
-        Item item; // item contains key and value
-        SPNode left; // link to left subtree
-        SPNode right; // link to right subtree
-        int num; // nodes number under this node as root
-    };
-
-    SPNode root; // root of BST
 };
 
 #endif
