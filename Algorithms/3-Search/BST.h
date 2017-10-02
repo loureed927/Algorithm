@@ -105,12 +105,12 @@ public:
     // access vector contains all keys in ST.
     void Keys(std::vector<Key>& keyContainer)
     {
-
+        return Keys(keyContainer, Min(), Max());
     }
 
     void Keys(std::vector<Key>& keyContainer, Key& lo, Key& hi)
     {
-
+        return Keys(keyContainer, root, lo, hi);
     }
 
 private:
@@ -423,6 +423,27 @@ private:
         // update node counter.
         node->num = Size(node->left) + Size(node->right) + 1;
         return node;
+    }
+
+    void Keys(std::vector<Key>& keyContainer, SPNode node, Key& lo, Key& hi)
+    {
+        if (node == nullptr)
+            return;
+
+        if (lo < node->item.GetKey())
+        {
+            Keys(keyContainer, node->left, lo, hi);
+        }
+
+        if (lo < node->item.GetKey() && hi > node->item.GetKey())
+        {
+            keyContainer.push_back(node->item.GetKey());
+        }
+
+        if (hi > node->item.GetKey())
+        {
+            Keys(keyContainer, node, lo, hi);
+        }
     }
 
 private:
