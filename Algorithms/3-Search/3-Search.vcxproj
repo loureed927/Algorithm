@@ -68,6 +68,7 @@
     <ClInclude Include="BinarySearchST.h" />
     <ClInclude Include="BST.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="RedBlackBST.h" />
     <ClInclude Include="SequentialSearchST.h" />
   </ItemGroup>
   <ItemGroup>
