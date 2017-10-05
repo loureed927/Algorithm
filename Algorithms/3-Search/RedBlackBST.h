@@ -10,6 +10,22 @@
 #include <vector>
 
 // red black BST
+// we use standard BST plus color information to represent 2-3 tree.
+// red link bind two nodes can encode 3-nodes.
+// Rules:
+// a). red links lean left, don't allow right red links because it will become 4-node if one node
+//     both has red left and right link.
+// b). one node can only have one red link, also because it will become 4-node if allowed.
+// c). every path from root to null link has same number of black link(perfect black balance).
+//                  M                                             M
+//                /   \                                         /   \
+//              J       R                                    [E J]    R
+//           &/  \     /  \     rbtree   2-3tree            /  |  \  /  \
+//          E     L   P    X          ==                [A C]  H   L P  [S X]
+//        /  \           &/
+//       C    H         S
+//     &/
+//    A
 template<typename Key, typename Item>
 class RedBlackBST
 {
@@ -32,7 +48,7 @@ private:
         SPNode left; // link to left subtree
         SPNode right; // link to right subtree
         int num; // nodes number under this node as root
-        bool color;
+        bool color; // color of link from parent to this node
     };
 
     static bool RED = true;
@@ -52,6 +68,7 @@ public:
     void Put(Item& item)
     {
         root = Put(item, root);
+        root->color = BLACK;
     }
 
     Item& Get(Key& key)
@@ -148,6 +165,47 @@ private:
         return node->color == RED;
     }
 
+    // this method takes one node from BST which its right link is red,
+    // returns a node as root of BST of same keys which left link is red.
+    //                    node                                          x
+    //                  /     &\                                     &/   \
+    //             keys<node    x                   ----->         node    keys>x
+    //                        /   \                               /    \
+    //               keys(node,x)  keys>x                   keys<node keys(node,x)
+    SPNode rotateLeft(SPNode node)
+    {
+        SPNode x = node->right;
+        node->right = x->left;
+        x->left = node;
+        x->color = node->color; // preserve node's color
+        node->color = RED; // node is new root x's left red link now.
+        x->num = node->num;
+        node->num = Size(node->left) + Size(node->right) + 1;
+
+        return x;
+    }
+
+    // similar to rotateLeft
+    SPNode rotateRight(SPNode node)
+    {
+        SPNode x = node->left;
+        node->left = x->right;
+        x->right = node;
+        x->color = node->color; // preserve node's color
+        node->color = RED; // node is new root x's right red link now.
+        x->num = node->num;
+        node->num = Size(node->left) + Size(node->right) + 1;
+
+        return x;
+    }
+
+    void flipColors(SPNode node)
+    {
+        node->color = RED;
+        node->left->color = BLACK;
+        node->right->color = BLACK;
+    }
+
     SPNode Put(Item& item, SPNode node)
     {
         if (item.IsNull())
@@ -156,7 +214,8 @@ private:
         // if node is null, create one.
         if (node == nullptr)
         {
-            return std::make_shared<Node>(item, 1);
+            // add with red link to parent.
+            return std::make_shared<Node>(item, 1, RED);
         }
 
         // if exist, update its value
@@ -172,6 +231,20 @@ private:
         {
             node->item.SetValue(item.GetValue());
         }
+
+        if (isRed(node->right) && !isRed(node->left))
+        {
+            node = rotateLeft(node);
+        }
+        if (isRed(node->left) && isRed(node->left->left))
+        {
+            node = rotateRight(node);
+        }
+        if (isRed(node->left) && isRed(node->right))
+        {
+            flipColors(node);
+        }
+
         node->num = Size(node->left) + Size(node->right) + 1;
         return node;
     }
@@ -248,13 +321,13 @@ private:
         // considering BST
         //                   s
         //                  / \
-                        //                 e   x
+        //                 e   x
         //                / \
-                        //               a    r
+        //               a    r
         //                \  /
         //                c  h
         //                   \
-                        //                    m
+        //                    m
         // looking for g's ceiling.
         // g is less than root s, the ceiling may be in left subtree or root itself.
         // g is greater than e, then ceiling must in the right subtree of e.
@@ -295,13 +368,13 @@ private:
         // considering BST
         //                   s
         //                  / \
-                        //                 e   x
+        //                 e   x
         //                / \
-                        //               a    r
+        //               a    r
         //                \  /
         //                c  h
         //                   \
-                        //                    m
+        //                    m
         // looking for g's floor
         // g is less than root s, it must be left subtree.
         // g is greater than e, then e's right subtree may contain the floor if it has key less than(equal to) g.
