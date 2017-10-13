@@ -78,14 +78,64 @@ public:
 
     void Delete(Key& key)
     {
+        if (key == nullKey)
+            throw(key);
+
+        if (!Contains(key))
+            return;
+
+        if (!isRed(root->left) && !isRed(root->right))
+            root->color = RED;
+
+        root = Delete(key, root);
+
+        if (!IsEmpty())
+            root->color = BLACK;
     }
 
     void DeleteMin()
     {
+        // the key is we can only delete key from 3-node, otherwise delete from 2-node will leave
+        // a null link which break tree balance. so need to ensure do not end up with a 2-node by
+        // ensure current node is not 2-node.
+        // at root:
+        // a) if root is 2-node, both children are 2-node, then combine them to 4-node;
+        // b) otherwise borrow node from right child to ensure left child is not 2-node.
+        // down the tree:
+        // a). if left child of current node is not 2-node, it is perfect.
+        // b). if left child is 2-node,
+        //     b.1. right child is 2-node, then combine them with smallest key in parent to make
+        //          left child 4-node;
+        //     b.2  right child is not 2-node, then move smallest key in right child to parent,
+        //          move smallest key in parent to left child, make left child 3-node;
+        // traverse left links to bottom, will end up with a 3-node or 4-node, delete the smallest key,
+        // will convert this node to 2-node or 3-node, then up the tree to split any 4-node.
+
+        if (IsEmpty())
+            return;
+
+        //?
+        if (!isRed(root->left) && !isRed(root->right))
+            root->color = RED;
+
+        root = DeleteMin(root);
+
+        if (!IsEmpty())
+            root->color = BLACK;
     }
 
     void DeleteMax()
     {
+        if (IsEmpty())
+            return;
+
+        if (!isRed(root->left) && !isRed(root->right))
+            root->color = RED;
+
+        root = DeleteMax(root);
+
+        if (!IsEmpty())
+            root->color = BLACK;
     }
 
     // Rank will return the number of keys smaller than given key.
@@ -206,6 +256,57 @@ private:
         node->right->color = BLACK;
     }
 
+    SPNode moveRedLeft(SPNode node)
+    {
+        // why flip color here?
+        flipColors(node);
+
+        // move red link of right node to left node
+        if (isRed(node->right->left))
+        {
+            node->right = rotateRight(node->right);
+            node = rotateLeft(node);
+            flipColors(node);
+        }
+
+        return node;
+    }
+
+    SPNode moveRedRight(SPNode node)
+    {
+        // why flip color here?
+        flipColors(node);
+
+        // 
+        if (isRed(node->left->left))
+        {
+            node = rotateRight(node);
+            flipColors(node);
+        }
+
+        return node;
+    }
+
+    // restore red black tree invariant
+    SPNode balance(SPNode node)
+    {
+        if (isRed(node->right) && !isRed(node->left))
+        {
+            node = rotateLeft(node);
+        }
+        if (isRed(node->left) && isRed(node->left->left))
+        {
+            node = rotateRight(node);
+        }
+        if (isRed(node->left) && isRed(node->right))
+        {
+            flipColors(node);
+        }
+
+        node->num = Size(node->left) + Size(node->right) + 1;
+        return node;
+    }
+
     SPNode Put(Item& item, SPNode node)
     {
         if (item.IsNull())
@@ -247,6 +348,80 @@ private:
 
         node->num = Size(node->left) + Size(node->right) + 1;
         return node;
+    }
+
+    SPNode DeleteMin(SPNode node)
+    {
+        if (node->left == nullptr)
+            return nullptr;
+
+        if (!isRed(node->left) && !isRed(node->left->left))
+        {
+            node = moveRedLeft(node);
+        }
+
+        node->left = DeleteMin(node->left);
+        return balance(node);
+    }
+
+    SPNode DeleteMax(SPNode node)
+    {
+        if (isRed(node->left))
+            node = rotateRight(node);
+
+        if (node->right == nullptr)
+            return nullptr;
+
+        if (!isRed(node->right) && !isRed(node->right->left))
+        {
+            node = moveRedRight(node);
+        }
+
+        node->right = DeleteMin(node->right);
+        return balance(node);
+    }
+
+    SPNode Delete(Key& key, SPNode node)
+    {
+        if (key < node->item.GetKey())
+        {
+            if (!isRed(node->left) && !isRed(node->left->left))
+            {
+                node = moveRedLeft(node);
+            }
+            node->left = Delete(key, node->left);
+        }
+        else
+        {
+            if (isRed(node->left))
+            {
+                node = rotateRight(node);
+            }
+            if (key == node->item.GetKey() && node->right == nullptr)
+            {
+                return nullptr;
+            }
+            if (!isRed(node->right) && !isRed(node->right->left))
+            {
+                node = moveRedRight(node);
+            }
+            if (key == node->item.GetKey())
+            {
+                // if find the key, set its node with its min item of right subtree,
+                // and then delete the min node of subtree(its item is already moved to found node).
+                // also every node in the right subtree is smaller than min node.
+                SPNode x = Min(node->right);
+                node->item.SetKey(x->item.GetKey());
+                node->item.SetValue(x->item.GetValue());
+                node->right = DeleteMin(node->right);
+            }
+            else
+            {
+                node->right = Delete(key, node->right);
+            }
+
+            return balance(node);
+        }
     }
 
     /*****************************************************************************************/

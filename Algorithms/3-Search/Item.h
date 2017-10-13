@@ -37,6 +37,11 @@ public:
         return key;
     }
 
+    void SetKey(Key& k)
+    {
+        key = k;
+    }
+
     Value& GetValue()
     {
         return val;
