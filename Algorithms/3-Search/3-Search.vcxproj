@@ -69,6 +69,7 @@
     <ClInclude Include="BST.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="RedBlackBST.h" />
+    <ClInclude Include="SeparateChainingHashST.h" />
     <ClInclude Include="SequentialSearchST.h" />
   </ItemGroup>
   <ItemGroup>

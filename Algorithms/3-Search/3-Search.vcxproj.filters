@@ -30,6 +30,9 @@
     <ClInclude Include="RedBlackBST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SeparateChainingHashST.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestST.cpp">
