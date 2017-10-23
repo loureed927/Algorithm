@@ -241,28 +241,28 @@ void SeparateChainingHashST_TestClient()
         }
     }
 
-    //// show st.
-    //std::vector<Key> keyContainer;
-    //st.Keys(keyContainer);
+    // show st.
+    std::vector<Key> keyContainer;
+    st.Keys(keyContainer);
 
-    //cout << "sequential search symbol table items:" << endl;
-    //for (auto k : keyContainer)
-    //{
-    //    cout << k << ' ' << st.Get(k).GetValue() << endl;
-    //}
+    cout << "Separate Chaining Hash symbol table items:" << endl;
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
+    }
 
-    //// test delete item from st.
-    //Key keyToDelete("X");
-    //st.Delete(keyToDelete);
-    //// output st again.
-    //keyContainer.clear();
-    //st.Keys(keyContainer);
+    // test delete item from st.
+    Key keyToDelete("X");
+    st.Delete(keyToDelete);
+    // output st again.
+    keyContainer.clear();
+    st.Keys(keyContainer);
 
-    //cout << "sequential search symbol table items after delete key:" << keyToDelete << endl;
-    //for (auto k : keyContainer)
-    //{
-    //    cout << k << ' ' << st.Get(k).GetValue() << endl;
-    //}
+    cout << "Separate Chaining Hash table items after delete key:" << keyToDelete << endl;
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
+    }
 }
 
 int main()

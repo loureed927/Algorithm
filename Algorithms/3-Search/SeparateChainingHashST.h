@@ -5,6 +5,7 @@
 #ifndef SEPARATECHAININGHASHST_H
 #define SEPARATECHAININGHASHST_H
 
+#include <assert.h>
 #include "Item.h"
 #include "SequentialSearchST.h"
 
@@ -24,10 +25,6 @@ public:
     {
         st = (SequentialSearchST<Key, Item>*) new SequentialSearchST<Key, Item>[m];
         this->m = m;
-        //for (int i = 0; i < m; i++)
-        //{
-        //    st[i] = (SequentialSearchST<Key, Item>)new SequentialSearchST<Key, Item>();
-        //}
     }
 
     ~SeparateChainingHashST()
@@ -52,7 +49,12 @@ public:
 
     void Put(Item& item)
     {
-        return st[Hash(item.GetKey())].Put(item);
+        int i = Hash(item.GetKey());
+
+        if (!st[i].Contains(item.GetKey()))
+            n++;
+
+        return st[i].Put(item);
     }
 
     Item& Get(Key& key)
@@ -62,12 +64,23 @@ public:
 
     void Delete(Key& key)
     {
-        st[Hash(key)]->Delete(key);
+        int i = Hash(key);
+
+        if (st[i].Contains(key))
+            n--;
+
+        st[i].Delete(key);
+
+        // assert st should not have this key now.
+        assert(!st[i].Contains(key));
     }
 
     void Keys(std::vector<Key>& keyContainer)
     {
-
+        for (int i = 0; i < m; i++)
+        {
+            st[i].Keys(keyContainer);
+        }
     }
 
 private:
@@ -82,7 +95,7 @@ private:
         // it is to choose table size m to be prime, and for any integer key k,
         // compute the reminder when dividing k by m. (k%m)
 
-        int hashCode = std::hash<std::string>()(key);
+        size_t hashCode = std::hash<std::string>()(key);
         return hashCode % m;
     }
 };
