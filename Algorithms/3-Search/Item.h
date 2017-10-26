@@ -52,6 +52,12 @@ public:
         val = v;
     }
 
+    void SetItem(Item& item)
+    {
+        key = item.GetKey();
+        val = item.GetValue();
+    }
+
     bool IsNull()
     {
         return key == nullKey;
