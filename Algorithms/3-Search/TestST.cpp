@@ -11,6 +11,7 @@
 #include "SequentialSearchST.h"
 #include "BST.h"
 #include "SeparateChainingHashST.h"
+#include "LinearProbingHashST.h"
 
 using namespace std;
 
@@ -265,11 +266,55 @@ void SeparateChainingHashST_TestClient()
     }
 }
 
+void LinearProbingHashST_TestClient()
+{
+    LinearProbingHashST<Key, Item> st(16);
+
+    ifstream inputFile("tinyST.txt");
+    string line, word;
+    static int i = 0;
+
+    // populate st.
+    while (getline(inputFile, line))
+    {
+        istringstream stringIn(line);
+        while (stringIn >> word)
+        {
+            Item it(word, i++);
+            st.Put(it);
+        }
+    }
+
+    // show st.
+    std::vector<Key> keyContainer;
+    st.Keys(keyContainer);
+
+    cout << "Linear Probing Hash symbol table items:" << endl;
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
+    }
+
+    // test delete item from st.
+    Key keyToDelete("X");
+    st.Delete(keyToDelete);
+    // output st again.
+    keyContainer.clear();
+    st.Keys(keyContainer);
+
+    cout << "Linear Probing Hash table items after delete key:" << keyToDelete << endl;
+    for (auto k : keyContainer)
+    {
+        cout << k << ' ' << st.Get(k).GetValue() << endl;
+    }
+}
+
 int main()
 {
     //SequentialSearchST_TestClient();
     //BinarySearchST_TestClient();
     //BST_TestClient();
-    SeparateChainingHashST_TestClient();
+    //SeparateChainingHashST_TestClient();
+    LinearProbingHashST_TestClient();
 }
 

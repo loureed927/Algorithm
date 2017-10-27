@@ -53,12 +53,13 @@ public:
             Resize(2 * m);
         }
 
+        int i = 0;
         // use modular to calculate next position to avoid position out of array range.
-        for (int i = Hash(item.GetKey()); !itemArray[i].IsNull(); i = (i + 1) % m)
+        for (i = Hash(item.GetKey()); !itemArray[i].IsNull(); i = (i + 1) % m)
         {
-            if (itemArray[i].GetKey() == item[i].GetKey())
+            if (itemArray[i].GetKey() == item.GetKey())
             {
-                itemArray[i].SetValue(item[i].GetValue());
+                itemArray[i].SetValue(item.GetValue());
                 return;
             }
         }
@@ -74,7 +75,7 @@ public:
 
         for (int i = Hash(key); !itemArray[i].IsNull(); i = (i + 1) % m)
         {
-            if (itemArray[i].GetKey() == item[i].GetKey())
+            if (itemArray[i].GetKey() == key)
             {
                 return itemArray[i];
             }
@@ -90,17 +91,38 @@ public:
 
         int i = Hash(key);
 
-        for (i = Hash(key); !itemArray[i].IsNull(); i = (i + 1) % m)
+        // find the key in hash table and delete it.
+        while (itemArray[i].GetKey() != key)
         {
-            if (itemArray[i].GetKey() == item[i].GetKey())
-            {
-                // find the item, put all non-null item forward one position.
-                // note we cannot set the found item to null directly because 
-                // it will hash table unable to search item with same hash code after this item.
-
-            }
+            i = (i + 1) % m;
         }
 
+        itemArray[i] = nullItem;
+
+        // rehash all keys in the same cluster.
+        // note we cannot simply set found key to null and leave other keys of same cluster as be, since
+        // it will break the cluster, and make keys of same hash code unable to be found.(Get will only look for same cluster)
+        // also we cannot simply move all keys after found key in the cluster one position forward, because 
+        // it will move keys of different hash code to wrong position, those keys should keep their original place.
+        // So here we adopt the stupid and correct way to deal with it --- rehash.
+
+        i = (i + 1) % m; // next key after found key.
+        while (!itemArray[i].IsNull()) // for all left keys in the same cluster
+        {
+            Item itemToRehash = itemArray[i];
+            itemArray[i] = nullItem;
+            n--;
+            Put(itemToRehash); // reinsert
+            i = (i + 1) % m;
+        }
+
+        n--;
+
+        // resize the hash table to keep 0.5 load factor at most.
+        if (n > 0 && n <= m / 4)
+        {
+            Resize(m / 2);
+        }
     }
 
     void Keys(std::vector<Key>& keyContainer)
