@@ -8,7 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "..\1-Fundamentals\Bag.h"
+#include <vector>
 
 using namespace std;
 
@@ -21,7 +21,7 @@ public:
     {
         this->v = v;
         this->e = 0;
-        adjacencyLists = new LinkedListBag<int>[v];
+        adjacencyLists = new vector<int>[v];
     }
 
     // read a graph from input stream.
@@ -41,16 +41,18 @@ public:
         new (this)Graph(v);
 
         // read e.
+        int edgeNum = 0;
         getline(file, line);
         istringstream secondLine(line);
-        secondLine >> e;
+        secondLine >> edgeNum;
 
         // read e pairs of edges.
-        for (int i = 0; i < e; i++)
+        for (int i = 0; i < edgeNum; i++)
         {
             getline(file, line);
             istringstream LineForEdges(line);
-            int v1, v2 = 0;
+            int v1 = 0;
+            int v2 = 0;
             LineForEdges >> v1;
             LineForEdges >> v2;
             AddEdge(v1, v2);
@@ -79,21 +81,40 @@ public:
     {
         // add an edge connecting v and w by:
         // add w to v's adjacency list and then add v to w's.
-        adjacencyLists[v].add(w);
-        adjacencyLists[w].add(v);
+        adjacencyLists[v].push_back(w);
+        adjacencyLists[w].push_back(v);
         e++;
     }
 
     // vertices adjacent to v.
-    LinkedListBag<int>& AdjacentToVertex(int v)
+    vector<int>& AdjacentToVertex(int v)
     {
         return adjacencyLists[v];
+    }
+
+    // note should not return string& which reference a local variable.
+    string ToString()
+    {
+        // compose a stringstream contains graph information.
+        stringstream ss;
+        ss << Vertices() << " vertices. " << Edges() << " adges.\n";
+        for (int i = 0; i < Vertices(); i++)
+        {
+            ss << i << ": ";
+            for (int adj : adjacencyLists[i])
+            {
+                ss << adj << " ";
+            }
+            ss << "\n";
+        }
+
+        return ss.str();
     }
 
 private:
     int v; // number of vertices.
     int e; // number of edges.
-    LinkedListBag<int>* adjacencyLists; // a vertex-indexed array, size of v, each list contains vertices adjacent to this vertex.
+    vector<int>* adjacencyLists; // a vertex-indexed array, size of v, each list contains vertices adjacent to this vertex.
 };
 
 #endif
