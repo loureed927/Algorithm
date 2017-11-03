@@ -225,7 +225,7 @@ void BST_TestClient()
 
 void SeparateChainingHashST_TestClient()
 {
-    SeparateChainingHashST<Key, Item> st(5);
+    SeparateChainingHashST<Key, Item> st;
 
     ifstream inputFile("tinyST.txt");
     string line, word;
@@ -314,7 +314,7 @@ int main()
     //SequentialSearchST_TestClient();
     //BinarySearchST_TestClient();
     //BST_TestClient();
-    //SeparateChainingHashST_TestClient();
-    LinearProbingHashST_TestClient();
+    SeparateChainingHashST_TestClient();
+    //LinearProbingHashST_TestClient();
 }
 

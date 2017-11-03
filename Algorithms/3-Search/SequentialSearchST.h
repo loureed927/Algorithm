@@ -64,7 +64,9 @@ public:
         if (key == nullKey)
             return;
 
-        Delete(first, key);
+        // only call Delete(first, key) is wrong, need to return the node for first node.
+        // imagine only have one node in the list, first needs to be set null.
+        first = Delete(first, key);
 
         // this way of delete has issue: if first item is to be deleted, the first node is invalid.
         //// cannot delete a null item.
