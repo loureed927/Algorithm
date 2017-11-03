@@ -18,7 +18,7 @@ class SeparateChainingHashST
 public:
     SeparateChainingHashST()
     {
-        SeparateChainingHashST(997);
+        new (this)SeparateChainingHashST(997);
     }
 
     SeparateChainingHashST(int m)
