@@ -8,7 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <vector>
+#include <forward_list>
 
 using namespace std;
 
@@ -21,7 +21,7 @@ public:
     {
         this->v = v;
         this->e = 0;
-        adjacencyLists = new vector<int>[v];
+        adjacencyLists = new forward_list<int>[v];
     }
 
     // read a graph from input stream.
@@ -81,13 +81,13 @@ public:
     {
         // add an edge connecting v and w by:
         // add w to v's adjacency list and then add v to w's.
-        adjacencyLists[v].push_back(w);
-        adjacencyLists[w].push_back(v);
+        adjacencyLists[v].push_front(w);
+        adjacencyLists[w].push_front(v);
         e++;
     }
 
     // vertices adjacent to v.
-    vector<int>& AdjacentToVertex(int v)
+    forward_list<int>& AdjacentToVertex(int v)
     {
         return adjacencyLists[v];
     }
@@ -114,7 +114,10 @@ public:
 private:
     int v; // number of vertices.
     int e; // number of edges.
-    vector<int>* adjacencyLists; // a vertex-indexed array, size of v, each list contains vertices adjacent to this vertex.
+
+    // a vertex-indexed array, size of v, each list contains vertices adjacent to this vertex.
+    // note use forward_list here to push item afront, keep consistent with Bag used by book.
+    forward_list<int>* adjacencyLists;
 };
 
 #endif
