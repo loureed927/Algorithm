@@ -22,6 +22,8 @@ void GraphDFS_TestClient(int source)
     Graph g(inputFile);
     DepthFirstSearch dfs(g, source);
 
+    cout << "All vertices connected to source vertex " << source << ":" << endl;
+
     // loop all vertices, print vertices connected to source.
     for (int v = 0; v < g.Vertices(); v++)
     {
@@ -33,11 +35,12 @@ void GraphDFS_TestClient(int source)
 
     // print whether the graph is connected.
     // the graph is connected if and only if the search marked all of its vertices.
+    cout << "The graph is ";
     if (dfs.Count() != g.Vertices())
     {
         cout << "NOT";
     }
-    cout << "connected" << endl;
+    cout << " connected.\n" << endl;
 }
 
 int main()
