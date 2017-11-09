@@ -21,6 +21,9 @@
     <ClInclude Include="DepthFirstSearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DepthFirstPaths.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">

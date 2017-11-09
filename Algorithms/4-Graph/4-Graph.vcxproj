@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DepthFirstPaths.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="Graph.h" />
   </ItemGroup>
