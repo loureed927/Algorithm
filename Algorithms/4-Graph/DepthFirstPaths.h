@@ -21,6 +21,7 @@ public:
         for (int m = 0; m < vertices; m++)
         {
             marked[m] = false;
+            edgeTo[m] = s;
         }
 
         dfs(g, s);
@@ -42,14 +43,13 @@ public:
     std::stack<int> PathTo(int v)
     {
         std::stack<int> path;
-        int lastVertex = edgeTo[v];
+        if (!HasPathTo(v))
+            return path;
 
-        while (lastVertex != s)
+        for (int x = v; x != s; x = edgeTo[x])
         {
-            path.push(lastVertex);
-            lastVertex = edgeTo[lastVertex];
+            path.push(x);
         }
-
         path.push(s);
 
         return path;
