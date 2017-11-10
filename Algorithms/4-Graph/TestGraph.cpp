@@ -7,6 +7,7 @@
 #include "Graph.h"
 #include "DepthFirstSearch.h"
 #include "DepthFirstPaths.h"
+#include "BreadthFirstPaths.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void GraphDFSPaths_TestClient(int source)
     Graph g(inputFile);
     DepthFirstPaths paths(g, source);
 
-    cout << "Paths from source " << source << " to each vertex connected to source:" << endl;
+    cout << "DFS Paths from source " << source << " to each vertex connected to source:" << endl;
 
     // loop all vertices, print paths connected to source.
     for (int v = 0; v < g.Vertices(); v++)
@@ -79,7 +80,43 @@ void GraphDFSPaths_TestClient(int source)
             cout << endl;
         }
     }
+}
 
+void GraphBFSPaths_TestClient(int source)
+{
+    ifstream inputFile("tinyCG.txt");
+    Graph g(inputFile);
+    BreadthFirstPaths paths(g, source);
+
+    cout << "BFS Paths from source " << source << " to each vertex connected to source:" << endl;
+
+    // loop all vertices, print paths connected to source.
+    for (int v = 0; v < g.Vertices(); v++)
+    {
+        cout << source << " to " << v << ": ";
+        if (paths.HasPathTo(v))
+        {
+            std::stack<int> pathStack(paths.PathTo(v));
+
+            // get path vertex from start by pop the stack.
+            while (!pathStack.empty())
+            {
+                int pathNode = pathStack.top();
+
+                if (pathNode == source)
+                {
+                    cout << pathNode;
+                }
+                else
+                {
+                    cout << "-" << pathNode;
+                }
+
+                pathStack.pop();
+            }
+            cout << endl;
+        }
+    }
 }
 
 int main()
@@ -88,5 +125,6 @@ int main()
     GraphDFS_TestClient(0);
     GraphDFS_TestClient(9);
     GraphDFSPaths_TestClient(0);
+    GraphBFSPaths_TestClient(0);
 }
 
