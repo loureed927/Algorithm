@@ -5,6 +5,7 @@
 #ifndef BREADTHFIRSTPATHS_H
 #define BREADTHFIRSTPATHS_H
 
+#include <queue>
 #include <stack>
 #include "Graph.h"
 
@@ -62,19 +63,31 @@ private:
         // to visit a vertex, marked it as having been visited.
         marked[v] = true;
 
-        for (int a : g.AdjacentToVertex(v))
-        {
-            // if adjacent vertex of v is not visited, continue with dfs.
-            if (!marked[a])
-            {
-                marked[a] = true;
-                edgeTo[a] = v; // store the last vertex on the path.
-            }
-        }
+        std::queue<int> toBeMarked;
+        toBeMarked.push(v);
 
-        for (int a : g.AdjacentToVertex(v))
+        while (!toBeMarked.empty())
         {
-            bfs(g, a);
+            int thisLevel = toBeMarked.front();
+            // push all unmarked vertices next level to queue.
+            for (int nextLevel : g.AdjacentToVertex(thisLevel))
+            {
+                if (!marked[nextLevel])
+                {
+                    toBeMarked.push(nextLevel);
+
+                    marked[nextLevel] = true;
+                    edgeTo[nextLevel] = thisLevel;
+                }
+            }
+
+            // pop vertex this level. If there are other vertex in the queue, continue.
+            // for tinyG.txt: thisLevel begins with 0, queue is with 0.
+            // nextLevel are 2,1,5, all unmarked so push them to queue.
+            // now queue is 0, 2, 1, 5. then pop the 0.
+            // front now is 2, nextLevel are 0,1,3,4. so push 3, 4 in the queue.
+            // Now queue is 2, 1, 5, 3, 4, done with 2, we pop 2, then continue with 1...
+            toBeMarked.pop();
         }
     }
 
