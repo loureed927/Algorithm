@@ -27,6 +27,9 @@
     <ClInclude Include="BreadthFirstPaths.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConnectedComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">
