@@ -8,6 +8,7 @@
 #include "DepthFirstSearch.h"
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
+#include "ConnectedComponents.h"
 
 using namespace std;
 
@@ -119,6 +120,34 @@ void GraphBFSPaths_TestClient(int source)
     }
 }
 
+void GraphCC_TestClient()
+{
+    ifstream inputFile("tinyG.txt");
+    Graph g(inputFile);
+    ConnectedComponents cc(g);
+
+    int n = cc.Count();
+    cout << n << " components" << endl;
+
+    vector<int>* components = new vector<int>[n];
+    for (int i = 0; i < g.Vertices(); i++)
+    {
+        // add each vertex to component vector.
+        int index = cc.Id(i);
+        components[index].push_back(i);
+    }
+
+    // print elements of each components.
+    for (int j = 0; j < n; j++)
+    {
+        for (int v : components[j])
+        {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     GraphConstruct_TestClient();
@@ -126,5 +155,6 @@ int main()
     GraphDFS_TestClient(9);
     GraphDFSPaths_TestClient(0);
     GraphBFSPaths_TestClient(0);
+    GraphCC_TestClient();
 }
 
