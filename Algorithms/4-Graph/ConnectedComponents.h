@@ -78,5 +78,4 @@ private:
     int* id; // component id for each vertex
     int count;
 };
-
 #endif

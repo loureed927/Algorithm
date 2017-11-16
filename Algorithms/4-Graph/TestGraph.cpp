@@ -157,4 +157,3 @@ int main()
     GraphBFSPaths_TestClient(0);
     GraphCC_TestClient();
 }
-
