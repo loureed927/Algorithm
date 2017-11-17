@@ -30,6 +30,9 @@
     <ClInclude Include="ConnectedComponents.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CycleDetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">

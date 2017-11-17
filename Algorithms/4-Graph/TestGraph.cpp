@@ -9,6 +9,7 @@
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
 #include "ConnectedComponents.h"
+#include "CycleDetection.h"
 
 using namespace std;
 
@@ -146,6 +147,27 @@ void GraphCC_TestClient()
         }
         cout << endl;
     }
+
+    delete[] components;
+}
+
+void GraphCyclic_TestClient()
+{
+    ifstream inputFile("tinyG.txt");
+    Graph g(inputFile);
+    CycleDetection cd(g);
+
+    bool isCyclicGraph = cd.HasCycle();
+
+    cout << "The graph is ";
+    if (isCyclicGraph)
+    {
+        cout << "cyclic.\n" << endl;
+    }
+    else
+    {
+        cout << "acyclic.\n" << endl;
+    }
 }
 
 int main()
@@ -156,4 +178,5 @@ int main()
     GraphDFSPaths_TestClient(0);
     GraphBFSPaths_TestClient(0);
     GraphCC_TestClient();
+    GraphCyclic_TestClient();
 }
