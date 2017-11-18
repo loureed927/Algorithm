@@ -10,6 +10,7 @@
 #include "BreadthFirstPaths.h"
 #include "ConnectedComponents.h"
 #include "CycleDetection.h"
+#include "BipartiteDetection.h"
 
 using namespace std;
 
@@ -170,6 +171,24 @@ void GraphCyclic_TestClient()
     }
 }
 
+void GraphBipartite_TestClient()
+{
+    ifstream inputFile("tinyG.txt");
+    Graph g(inputFile);
+    BipartiteDetection bd(g);
+
+    bool isBipartite = bd.IsBipartite();
+
+    cout << "The graph is ";
+    if (!isBipartite)
+    {
+        cout << "NOT";
+    }
+
+    cout << " bipartite." << endl;
+
+}
+
 int main()
 {
     GraphConstruct_TestClient();
@@ -179,4 +198,5 @@ int main()
     GraphBFSPaths_TestClient(0);
     GraphCC_TestClient();
     GraphCyclic_TestClient();
+    GraphBipartite_TestClient();
 }

@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BipartiteDetection.h" />
     <ClInclude Include="BreadthFirstPaths.h" />
     <ClInclude Include="ConnectedComponents.h" />
     <ClInclude Include="CycleDetection.h" />
