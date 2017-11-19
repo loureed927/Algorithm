@@ -11,6 +11,7 @@
 #include "ConnectedComponents.h"
 #include "CycleDetection.h"
 #include "BipartiteDetection.h"
+#include "SymbolGraph.h"
 
 using namespace std;
 
