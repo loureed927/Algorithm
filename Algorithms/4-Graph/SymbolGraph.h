@@ -10,12 +10,15 @@
 #include <vector>
 #include <boost/algorithm/string.hpp>
 #include "Graph.h"
-#include "..\3-Search\SequentialSearchST.h"
+#include "..\3-Search\SeparateChainingHashST.h"
 
 using namespace std;
 
 // symbol graph acts like a wrapper for Graph which allows string as vertex,
 // by convert string to int and then use graph internally.
+// some properties of symbol graph"
+// vertex names are string, each line represents a set of edges which connect the
+// first vertex name to each other vertex names, names are separated by delimiter.
 class SymbolGraph
 {
 public:
@@ -31,6 +34,7 @@ public:
             // a line could contain multiple vertices.
             string vertex;
             vector<string> verticesOfLine;
+            // note need to add pre-processor definitions _SCL_SECURE_NO_WARNINGS to allow build success.
             boost::split(verticesOfLine, line, boost::is_any_of(delimiter));
 
             for (auto name : verticesOfLine)
@@ -63,7 +67,7 @@ public:
             boost::split(verticesOfLine, line, boost::is_any_of(delimiter));
 
             int firstVertex = st.Get(verticesOfLine[0]).GetValue();
-            for (int i = 1; i < verticesOfLine.size(); i++)
+            for (unsigned int i = 1; i < verticesOfLine.size(); i++)
             {
                 g->AddEdge(firstVertex, st.Get(verticesOfLine[i]).GetValue());
             }
@@ -73,6 +77,7 @@ public:
     ~SymbolGraph()
     {
         delete[] keys;
+        delete g;
     }
 
     // is key a vertex?
@@ -94,13 +99,14 @@ public:
     }
 
     // underlying graph
-    Graph* graph()
+    Graph* GetGraph()
     {
         return g;
     }
 
 private:
-    SequentialSearchST<string, Item> st; // string->index
+    SeparateChainingHashST<string, Item> st; // string->index, use hash st instead of SequentialSearchST 
+                                             // since it is very slow for large database like movies.txt
     string* keys;                       // index->string
     Graph* g;
 };

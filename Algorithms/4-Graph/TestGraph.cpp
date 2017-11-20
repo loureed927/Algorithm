@@ -187,7 +187,42 @@ void GraphBipartite_TestClient()
     }
 
     cout << " bipartite." << endl;
+}
 
+void SymbolGraph_TestClient()
+{
+    //SymbolGraph sg(string("routes.txt"), string(" "));
+    SymbolGraph sg(string("movies.txt"), string("/"));
+    Graph* g = sg.GetGraph();
+
+    string name;
+    cout << "input vertex name:";
+
+    // use getline not cin>>name to get whole stirng including white space...
+    while (getline(cin, name))
+    {
+        if (sg.Contains(name))
+        {
+            cout << "All adjacent vertex names:" << endl;
+            for (auto a : g->AdjacentToVertex(sg.Index(name)))
+            {
+                cout << sg.Name(a) <<endl;
+            }
+            cout << endl;
+
+            cout << "input vertex name:";
+        }
+        else if (strcmp(name.c_str(), "Q") == 0)
+        {
+            // press Q to exit input.
+            break;
+        }
+        else
+        {
+            cout << "Cannot find any input string in symbol graph." << endl;
+            cout << "Please input vertex name again:";
+        }
+    }
 }
 
 int main()
@@ -200,4 +235,5 @@ int main()
     GraphCC_TestClient();
     GraphCyclic_TestClient();
     GraphBipartite_TestClient();
+    SymbolGraph_TestClient();
 }
