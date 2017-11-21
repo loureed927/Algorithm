@@ -39,6 +39,9 @@
     <ClInclude Include="SymbolGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DegreesOfSeparation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">

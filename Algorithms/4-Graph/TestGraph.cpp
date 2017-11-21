@@ -12,6 +12,7 @@
 #include "CycleDetection.h"
 #include "BipartiteDetection.h"
 #include "SymbolGraph.h"
+#include "DegreesOfSeparation.h"
 
 using namespace std;
 
@@ -191,8 +192,8 @@ void GraphBipartite_TestClient()
 
 void SymbolGraph_TestClient()
 {
-    //SymbolGraph sg(string("routes.txt"), string(" "));
-    SymbolGraph sg(string("movies.txt"), string("/"));
+    SymbolGraph sg(string("routes.txt"), string(" "));
+    //SymbolGraph sg(string("movies.txt"), string("/"));
     Graph* g = sg.GetGraph();
 
     string name;
@@ -225,6 +226,11 @@ void SymbolGraph_TestClient()
     }
 }
 
+void DegreesOfSeparation_TestClient()
+{
+    DegreesOfSeparation::CalculateDOS(string("routes.txt"), string(" "), string("JFK"));
+}
+
 int main()
 {
     GraphConstruct_TestClient();
@@ -236,4 +242,5 @@ int main()
     GraphCyclic_TestClient();
     GraphBipartite_TestClient();
     SymbolGraph_TestClient();
+    DegreesOfSeparation_TestClient();
 }
