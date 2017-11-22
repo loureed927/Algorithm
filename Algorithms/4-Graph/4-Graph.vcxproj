@@ -78,6 +78,7 @@
     <ClInclude Include="DegreesOfSeparation.h" />
     <ClInclude Include="DepthFirstPaths.h" />
     <ClInclude Include="DepthFirstSearch.h" />
+    <ClInclude Include="Digraph.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="SymbolGraph.h" />
   </ItemGroup>
