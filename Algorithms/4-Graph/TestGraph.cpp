@@ -14,6 +14,9 @@
 #include "SymbolGraph.h"
 #include "DegreesOfSeparation.h"
 
+#include "Digraph.h"
+#include "DirectedDFS.h"
+
 using namespace std;
 
 void GraphConstruct_TestClient()
@@ -231,8 +234,45 @@ void DegreesOfSeparation_TestClient()
     DegreesOfSeparation::CalculateDOS(string("routes.txt"), string(" "), string("JFK"));
 }
 
+void DigraphDFS_TestClient()
+{
+    ifstream inputFile("tinyDG.txt");
+    Digraph g(inputFile);
+
+    cout << "Please input sources to query all reachable vertices:";
+
+    string source;
+    vector<int> sources;
+    // get input vertices from standard input by one line.
+    getline(cin, source);
+    stringstream ss;
+    ss << source;
+    int sourceIndx = 0;
+    // convert string input to int by stringstream.
+    while (!ss.eof())
+    {
+        ss >> sourceIndx;
+        sources.push_back(sourceIndx);
+    }
+
+    DirectedDFS dfs(g, sources);
+
+    cout << "All reachable vertices to sources: " << endl;
+
+    // loop all vertices, print vertices connected to source.
+    for (int v = 0; v < g.Vertices(); v++)
+    {
+        if (dfs.Marked(v))
+        {
+            cout << v << " ";
+        }
+    }
+    cout << endl;
+}
+
 int main()
 {
+    // undirected graph.
     GraphConstruct_TestClient();
     GraphDFS_TestClient(0);
     GraphDFS_TestClient(9);
@@ -243,4 +283,7 @@ int main()
     GraphBipartite_TestClient();
     SymbolGraph_TestClient();
     DegreesOfSeparation_TestClient();
+
+    // directed graph.
+    DigraphDFS_TestClient();
 }
