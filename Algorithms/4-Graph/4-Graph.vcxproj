@@ -79,6 +79,7 @@
     <ClInclude Include="DepthFirstPaths.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="Digraph.h" />
+    <ClInclude Include="DirectedCycle.h" />
     <ClInclude Include="DirectedDFS.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="SymbolGraph.h" />

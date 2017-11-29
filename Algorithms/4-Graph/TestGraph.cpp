@@ -16,6 +16,7 @@
 
 #include "Digraph.h"
 #include "DirectedDFS.h"
+#include "DirectedCycle.h"
 
 using namespace std;
 
@@ -270,6 +271,34 @@ void DigraphDFS_TestClient()
     cout << endl;
 }
 
+void DirectedCycle_TestClient()
+{
+    ifstream inputFile("tinyDG.txt");
+    Digraph g(inputFile);
+    DirectedCycle dc(g);
+
+    bool isDAG = dc.HasCycle();
+
+    cout << "The graph is ";
+    if (isDAG)
+    {
+        cout << "DAG.\n" << endl;
+        cout << "All vertices in a cycle:";
+        stack<int> cycle = dc.Cycle();
+        while (!cycle.empty())
+        {
+            int vertex = cycle.top();
+            cout << " " << vertex;
+            cycle.pop();
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << "not DAG.\n" << endl;
+    }
+}
+
 int main()
 {
     // undirected graph.
@@ -286,4 +315,5 @@ int main()
 
     // directed graph.
     DigraphDFS_TestClient();
+    DirectedCycle_TestClient();
 }
