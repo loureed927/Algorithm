@@ -76,6 +76,7 @@
     <ClInclude Include="ConnectedComponents.h" />
     <ClInclude Include="CycleDetection.h" />
     <ClInclude Include="DegreesOfSeparation.h" />
+    <ClInclude Include="DepthFirstOrder.h" />
     <ClInclude Include="DepthFirstPaths.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="Digraph.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="DirectedDFS.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="SymbolGraph.h" />
+    <ClInclude Include="TopologicalSort.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp" />

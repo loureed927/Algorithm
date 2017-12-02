@@ -51,6 +51,12 @@
     <ClInclude Include="DirectedCycle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DepthFirstOrder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TopologicalSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">
