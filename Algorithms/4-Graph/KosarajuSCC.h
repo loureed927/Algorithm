@@ -24,14 +24,28 @@ public:
 
         count = 0;
 
+        // For the given digraph G, use DepthFirstOrder to compute reverse postorder of its reverse graph G(R).
+        // Run DFS on G with this order, and all vertices reached on a call to recursive dfs() are in a strongly component.
+        // proof:
+        // 1. every vertex v that is strongly connected to s is reached by dfs(G,s) in the constructor(not in recursion?).
+        //    we have path s->v, if v is not reached by dfs(G,s), then v must have been previously marked.
+        //    since we also have v->s, then s would be marked during previous dfs(G,v), then dfs(G,s) will not be called in constructor. Contradiction.
+        // 2. every vertex v reached by dfs(G,s) in the constructor is strongly connected to s.
+        //    there is a path s->v, so need to prove v->s in G, equivent to s->v in G(R).
+        //    during dfs in G(R), the reverse postorder will come to: dfs(G, v) must be done before dfs(G, s) during dfs of G(R).???
         DepthFirstOrder dfo(g.Reverse());
-        for (auto m : dfo.ReversePostOrder())
+        stack<int> reversePostOrder = dfo.ReversePostOrder();
+        while (!reversePostOrder.empty())
         {
+            int m = reversePostOrder.top();
+
             if (!marked[m])
             {
                 dfs(g, m);
                 count++;
             }
+
+            reversePostOrder.pop();
         }
     }
 

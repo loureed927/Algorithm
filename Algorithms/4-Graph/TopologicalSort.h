@@ -20,9 +20,11 @@ public:
         {
             DepthFirstOrder dfo(g);
             stack<int> reversePostOrder = dfo.ReversePostOrder();
-            for (auot v : reversePostOrder)
+            while (!reversePostOrder.empty())
             {
+                int v = reversePostOrder.top();
                 order.push_back(v);
+                reversePostOrder.pop();
             }
         }
     }

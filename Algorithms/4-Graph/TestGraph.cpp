@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <iostream>
+// undirected graph.
 #include "Graph.h"
 #include "DepthFirstSearch.h"
 #include "DepthFirstPaths.h"
@@ -13,10 +14,12 @@
 #include "BipartiteDetection.h"
 #include "SymbolGraph.h"
 #include "DegreesOfSeparation.h"
-
+// digraph.
 #include "Digraph.h"
 #include "DirectedDFS.h"
 #include "DirectedCycle.h"
+#include "DepthFirstOrder.h"
+#include "KosarajuSCC.h"
 
 using namespace std;
 
@@ -273,16 +276,17 @@ void DigraphDFS_TestClient()
 
 void DirectedCycle_TestClient()
 {
-    ifstream inputFile("tinyDG.txt");
+    //ifstream inputFile("tinyDG.txt");
+    ifstream inputFile("tinyDAG.txt");
     Digraph g(inputFile);
     DirectedCycle dc(g);
 
-    bool isDAG = dc.HasCycle();
+    bool isDAG = !dc.HasCycle();
 
     cout << "The graph is ";
-    if (isDAG)
+    if (!isDAG)
     {
-        cout << "DAG.\n" << endl;
+        cout << "not DAG.\n" << endl;
         cout << "All vertices in a cycle:";
         stack<int> cycle = dc.Cycle();
         while (!cycle.empty())
@@ -295,25 +299,56 @@ void DirectedCycle_TestClient()
     }
     else
     {
-        cout << "not DAG.\n" << endl;
+        cout << "DAG.\n" << endl;
     }
+}
+
+void SCC_TestClient()
+{
+    ifstream inputFile("tinyDG.txt");
+    Digraph g(inputFile);
+    KosarajuSCC scc(g);
+
+    int n = scc.Count();
+    cout << n << " components" << endl;
+
+    vector<int>* components = new vector<int>[n];
+    for (int i = 0; i < g.Vertices(); i++)
+    {
+        // add each vertex to component vector.
+        int index = scc.Id(i);
+        components[index].push_back(i);
+    }
+
+    // print elements of each components.
+    for (int j = 0; j < n; j++)
+    {
+        for (int v : components[j])
+        {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+
+    delete[] components;
 }
 
 int main()
 {
     // undirected graph.
-    GraphConstruct_TestClient();
-    GraphDFS_TestClient(0);
-    GraphDFS_TestClient(9);
-    GraphDFSPaths_TestClient(0);
-    GraphBFSPaths_TestClient(0);
-    GraphCC_TestClient();
-    GraphCyclic_TestClient();
-    GraphBipartite_TestClient();
-    SymbolGraph_TestClient();
-    DegreesOfSeparation_TestClient();
+    //GraphConstruct_TestClient();
+    //GraphDFS_TestClient(0);
+    //GraphDFS_TestClient(9);
+    //GraphDFSPaths_TestClient(0);
+    //GraphBFSPaths_TestClient(0);
+    //GraphCC_TestClient();
+    //GraphCyclic_TestClient();
+    //GraphBipartite_TestClient();
+    //SymbolGraph_TestClient();
+    //DegreesOfSeparation_TestClient();
 
     // directed graph.
     DigraphDFS_TestClient();
     DirectedCycle_TestClient();
+    SCC_TestClient();
 }

@@ -59,6 +59,33 @@ public:
         }
     }
 
+    // since Digraph contain pointer member data, need copy construct here.
+    // in Reverse method, local graph object will be deconstruct and copy construct
+    // needs to be called to deep copy graph object. otherwise adjacentList of copied
+    // object will be empty.
+    Digraph(Digraph& g)
+    {
+        this->v = g.Vertices();
+        this->e = g.Edges();
+        this->adjacencyLists = new forward_list<int>[v];
+        for (int i = 0; i < v; i++)
+        {
+            adjacencyLists[i] = g.AdjacentToVertex(i);
+        }
+    }
+
+    // deep copy also for copy-assignment operator.
+    Digraph& operator=(Digraph& g)
+    {
+        this->v = g.Vertices();
+        this->e = g.Edges();
+        this->adjacencyLists = new forward_list<int>[v];
+        for (int i = 0; i < v; i++)
+        {
+            adjacencyLists[i] = g.AdjacentToVertex(i);
+        }
+    }
+
     ~Digraph()
     {
         delete[] adjacencyLists;
@@ -98,7 +125,7 @@ public:
     Digraph Reverse()
     {
         Digraph dg(v);
-        for (int i = 0; i < e; i++)
+        for (int i = 0; i < v; i++)
         {
             for (auto a : this->AdjacentToVertex(i))
             {

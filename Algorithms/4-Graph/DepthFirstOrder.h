@@ -64,7 +64,7 @@ private:
         // cache vertex in preorder by adding current vertex to queue before recursive calls.
         pre.push(v);
 
-        for (int a : g.AdjacentToVertex(v))
+        for (auto a : g.AdjacentToVertex(v))
         {
             // if adjacent vertex of v is not visited, continue with dfs.
             if (!marked[a])
