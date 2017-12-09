@@ -20,6 +20,7 @@
 #include "DirectedCycle.h"
 #include "DepthFirstOrder.h"
 #include "KosarajuSCC.h"
+#include "TransitiveClosure.h"
 
 using namespace std;
 
@@ -333,6 +334,28 @@ void SCC_TestClient()
     delete[] components;
 }
 
+void TransitiveClosure_TestClient()
+{
+    ifstream inputFile("tinyDG.txt");
+    Digraph g(inputFile);
+    TransitiveClosure tc(g);
+
+    int v = 0;
+    int w = 2;
+    //int v = 1;
+    //int w = 8;
+    bool isReachable = tc.Reachable(v, w);
+    cout << w << " is";
+    if (isReachable)
+    {
+        cout << " reachable from " << v << endl;
+    }
+    else
+    {
+        cout << " not reachable from " << v << endl;
+    }
+}
+
 int main()
 {
     // undirected graph.
@@ -351,4 +374,5 @@ int main()
     DigraphDFS_TestClient();
     DirectedCycle_TestClient();
     SCC_TestClient();
+    TransitiveClosure_TestClient();
 }

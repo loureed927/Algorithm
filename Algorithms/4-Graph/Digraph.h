@@ -84,6 +84,7 @@ public:
         {
             adjacencyLists[i] = g.AdjacentToVertex(i);
         }
+        return *this;
     }
 
     ~Digraph()

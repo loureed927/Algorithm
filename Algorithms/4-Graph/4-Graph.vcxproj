@@ -86,6 +86,7 @@
     <ClInclude Include="KosarajuSCC.h" />
     <ClInclude Include="SymbolGraph.h" />
     <ClInclude Include="TopologicalSort.h" />
+    <ClInclude Include="TransitiveClosure.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp" />

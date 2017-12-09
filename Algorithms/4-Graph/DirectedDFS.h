@@ -12,10 +12,14 @@
 class DirectedDFS
 {
 public:
+    // need default constructor for TransitiveClosure to construct array of DirectedDFS.
+    DirectedDFS() = default;
+
     // find vertices in graph that are reachable from s.
     DirectedDFS(Digraph& g, int s)
     {
         int vertices = g.Vertices();
+        num = vertices;
         marked = new bool[vertices];
         for (int m = 0; m < vertices; m++)
         {
@@ -29,6 +33,7 @@ public:
     DirectedDFS(Digraph& g, vector<int>& sources)
     {
         int vertices = g.Vertices();
+        num = vertices;
         marked = new bool[vertices];
         for (int m = 0; m < vertices; m++)
         {
@@ -44,9 +49,39 @@ public:
         }
     }
 
+    DirectedDFS(DirectedDFS& dfs)
+    {
+        int n = dfs.SizeOfVertices();
+        this->num = n;
+        marked = new bool[n];
+        for (int m = 0; m < n; m++)
+        {
+            marked[m] = dfs.Marked(m);
+        }
+    }
+
+    // used in TransitiveClosure.
+    DirectedDFS& operator=(DirectedDFS& dfs)
+    {
+        int n = dfs.SizeOfVertices();
+        this->num = n;
+        marked = new bool[n];
+        for (int m = 0; m < n; m++)
+        {
+            marked[m] = dfs.Marked(m);
+        }
+
+        return *this;
+    }
+
     ~DirectedDFS()
     {
         delete[] marked;
+    }
+
+    int SizeOfVertices()
+    {
+        return num;
     }
 
     // is v reachable from s/sources?
@@ -72,6 +107,7 @@ private:
     }
 
     bool* marked; // array of bool values to mark all of the vertices that are connected to the source or not.
+    int num;
 };
 
 #endif
