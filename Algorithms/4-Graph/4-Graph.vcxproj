@@ -86,6 +86,7 @@
     <ClInclude Include="EdgeWeightedGraph.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="KosarajuSCC.h" />
+    <ClInclude Include="PrimMST.h" />
     <ClInclude Include="SymbolGraph.h" />
     <ClInclude Include="TopologicalSort.h" />
     <ClInclude Include="TransitiveClosure.h" />

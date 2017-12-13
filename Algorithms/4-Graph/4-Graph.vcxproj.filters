@@ -69,6 +69,9 @@
     <ClInclude Include="EdgeWeightedGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PrimMST.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">
