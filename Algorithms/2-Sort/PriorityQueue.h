@@ -132,7 +132,7 @@ public:
     ~IndexMinPQ()
     {
         delete[] pq;
-        delete[] pq;
+        delete[] qp;
         delete[] Item;
     }
 
@@ -185,7 +185,7 @@ public:
         // now we have n-1 elements, pq[n] unused. since we decrease N already, make pq[n+1] corresponding item as null.
         pq[n + 1] = -1;
         qp[k] = -1;
-        Item[k] = nullptr;
+        //Item[k] = nullptr;
     }
 
     // minimum item.
@@ -209,12 +209,12 @@ public:
         Exchange(1, n--); // exchange with the min with last item.
 
         // since last item in at the top, sink to reheaplify.
-        sink(1);
+        Sink(1);
 
         // now we have n-1 elements, pq[n] unused. since we decrease N already, make pq[n+1] corresponding item as null.
         pq[n + 1] = -1; 
         qp[index] = -1;
-        Item[index] = nullptr;
+        //Item[index] = nullptr;
 
         return index;
     }
@@ -236,7 +236,7 @@ private:
         return Item[pq[i]] > Item[pq[j]];
     }
 
-    bool Exchange(int i, int j)
+    void Exchange(int i, int j)
     {
         std::swap(pq[i], pq[j]);
         std::swap(qp[pq[i]], qp[pq[j]]);

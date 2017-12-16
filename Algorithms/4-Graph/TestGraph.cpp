@@ -21,6 +21,10 @@
 #include "DepthFirstOrder.h"
 #include "KosarajuSCC.h"
 #include "TransitiveClosure.h"
+// mst.
+#include "EdgeWeightedGraph.h"
+#include "PrimMST.h"
+
 
 using namespace std;
 
@@ -356,6 +360,22 @@ void TransitiveClosure_TestClient()
     }
 }
 
+void MST_TestClient()
+{
+    ifstream inputFile("tinyEWG.txt");
+    EdgeWeightedGraph g(inputFile);
+    //LazyPrimMST mst(g);
+    EagerPrimMST mst(g);
+
+    cout << "Edges in MST:" << endl;
+    for (auto e : mst.Edges())
+    {
+        cout << e.ToString() << endl;
+    }
+    cout << "Weight of MST: ";
+    cout << mst.Weight() << endl;
+}
+
 int main()
 {
     // undirected graph.
@@ -371,8 +391,11 @@ int main()
     //DegreesOfSeparation_TestClient();
 
     // directed graph.
-    DigraphDFS_TestClient();
-    DirectedCycle_TestClient();
-    SCC_TestClient();
-    TransitiveClosure_TestClient();
+    //DigraphDFS_TestClient();
+    //DirectedCycle_TestClient();
+    //SCC_TestClient();
+    //TransitiveClosure_TestClient();
+
+    // mst.
+    MST_TestClient();
 }

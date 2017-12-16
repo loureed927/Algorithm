@@ -14,6 +14,8 @@ using namespace std;
 class Edge
 {
 public:
+    Edge() = default;
+
     Edge(int v, int w, double weight)
     {
         this->v = v;
@@ -25,22 +27,22 @@ public:
     {
     }
 
-    bool operator< (Edge& e)
+    bool operator< (const Edge& e) const
     {
         return this->weight < e.weight;
     }
 
-    bool operator> (Edge& e)
+    bool operator> (const Edge& e) const
     {
         return this->weight > e.weight;
     }
 
-    bool operator== (Edge& e)
+    bool operator== (const Edge& e) const
     {
         return this->weight == e.weight;
     }
 
-    bool operator!= (Edge& e)
+    bool operator!= (const Edge& e) const
     {
         return this->weight != e.weight;
     }
