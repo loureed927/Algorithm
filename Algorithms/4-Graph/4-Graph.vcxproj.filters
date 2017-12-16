@@ -72,6 +72,12 @@
     <ClInclude Include="PrimMST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DirectedEdge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeWeightedDigraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">

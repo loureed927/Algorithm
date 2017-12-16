@@ -82,7 +82,9 @@
     <ClInclude Include="Digraph.h" />
     <ClInclude Include="DirectedCycle.h" />
     <ClInclude Include="DirectedDFS.h" />
+    <ClInclude Include="DirectedEdge.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="EdgeWeightedDigraph.h" />
     <ClInclude Include="EdgeWeightedGraph.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="KosarajuSCC.h" />
