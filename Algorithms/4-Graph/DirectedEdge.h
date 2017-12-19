@@ -64,6 +64,12 @@ public:
         return w;
     }
 
+    // if edge is self-cycle (v->v), define it as null edge.
+    bool IsNull()
+    {
+        return v == w;
+    }
+
     string ToString()
     {
         return str(boost::format("%d -> %d %.2f") % v %w %weight);

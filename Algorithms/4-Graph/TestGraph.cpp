@@ -26,6 +26,8 @@
 #include "PrimMST.h"
 // shortest paths.
 #include "EdgeWeightedDigraph.h"
+#include "DijkstraSP.h"
+
 
 using namespace std;
 
@@ -377,6 +379,13 @@ void MST_TestClient()
     cout << mst.Weight() << endl;
 }
 
+void SPT_TestClient()
+{
+    ifstream inputFile("tinyEWD.txt");
+    EdgeWeightedDigraph g(inputFile);
+    DijkstraSP spt(g, 0);
+}
+
 int main()
 {
     // undirected graph.
@@ -398,5 +407,8 @@ int main()
     //TransitiveClosure_TestClient();
 
     // mst.
-    MST_TestClient();
+    //MST_TestClient();
+
+    // spt.
+    SPT_TestClient();
 }

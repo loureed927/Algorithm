@@ -2,6 +2,12 @@
 //          priority queue
 //**************************************************************
 
+// Need to avoid duplicate include, otherwise will raise compiling error
+// MaxPQ/IndexMinPQ template has been defined since PrimMST.h has include once,
+// and other file like Dijkstra.h will include again cause this error.
+#ifndef PRIORITYQUEUE_H
+#define PRIORITYQUEUE_H
+
 // binary heap based max priority queue.
 template<typename T>
 class MaxPQ
@@ -285,4 +291,4 @@ private:
     int n; // all elements are stored in pq[1...N], pq[0] unused.
 };
 
-
+#endif

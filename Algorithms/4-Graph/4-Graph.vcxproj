@@ -80,6 +80,7 @@
     <ClInclude Include="DepthFirstPaths.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="Digraph.h" />
+    <ClInclude Include="DijkstraSP.h" />
     <ClInclude Include="DirectedCycle.h" />
     <ClInclude Include="DirectedDFS.h" />
     <ClInclude Include="DirectedEdge.h" />
