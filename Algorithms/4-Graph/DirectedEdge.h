@@ -72,7 +72,7 @@ public:
 
     string ToString()
     {
-        return str(boost::format("%d -> %d %.2f") % v %w %weight);
+        return str(boost::format("%d->%d %.2f") % v %w %weight);
     }
 
 private:

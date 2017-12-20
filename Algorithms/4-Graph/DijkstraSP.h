@@ -11,6 +11,7 @@
 #include "EdgeWeightedDigraph.h"
 #include "..\2-Sort\PriorityQueue.h"
 
+// solve the single-source shortest-paths problem in edge-weighted digraphs with nonnegative weights.
 class DijkstraSP
 {
 public:
@@ -43,7 +44,11 @@ public:
 
         while (!pq->IsEmpty())
         {
-            // get vertex in mst, and remove it from pq.
+            // vertices are added to spt in increasing order of their distance from s.
+            // Importance: if vertex w is lowest priority(lowest weight), then it must be in SPT.
+            // path though other vertex to reach w must be larger than this one.
+            // consider pq: distTo[a], distTo[b], distTo[c],
+            // then a is in SPT, any path from b to a must larger than distTo[a].
             int VertexToBeAdded = pq->DeleteMin();
 
             Relax(g, VertexToBeAdded);
@@ -76,7 +81,7 @@ public:
         if (!HasPathTo(v))
             return spt;
 
-        for (auto e = edgeTo[v]; e.IsNull(); e = edgeTo[e.From()])
+        for (auto e = edgeTo[v]; !e.IsNull(); e = edgeTo[e.From()])
         {
             spt.push(e);
         }
@@ -109,7 +114,10 @@ private:
                 distTo[w] = distBeforeRelax;
                 edgeTo[w] = e;
 
-                // add the vertex to priority queue after relax.
+                // add the vertex with the distance from s to w to priority queue after relax.
+                // note the difference between Prim and Dijkstra:
+                // Prim(eager): add next non-tree vertex that is closest to the tree.
+                // Dijkstra: add next non-tree vertex that is closet to the source.
                 if (pq->Contains(w))
                 {
                     pq->Change(w, distTo[w]);
@@ -124,6 +132,7 @@ private:
 
     DirectedEdge* edgeTo;       // edgeTo[v] is the edge connects v to its parent in the tree,
                                 // also it is the last edge on a shortest path from s to v.
+                                // all elements of edgeTo from reachable vertex forms a shortest paths tree(spt).
     double* distTo;             // length of the shortest path from s to v.
     IndexMinPQ<double>* pq;     // vertices that are candidates for being the next to be relaxed.
     int numVectices;            // total number of vertices, also size for edgeTo and distTo.

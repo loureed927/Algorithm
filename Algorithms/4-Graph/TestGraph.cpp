@@ -382,8 +382,32 @@ void MST_TestClient()
 void SPT_TestClient()
 {
     ifstream inputFile("tinyEWD.txt");
+    //ifstream inputFile("tinyspt.txt"); // simple test case to run relaxation
     EdgeWeightedDigraph g(inputFile);
-    DijkstraSP spt(g, 0);
+    int s = 0;
+    DijkstraSP spt(g, s);
+
+    // output paths and weight from source to all vertices.
+    for (int i = 0; i < g.Vertices(); i++)
+    {
+        string dist = str(boost::format("%4.2f") %spt.DistTo(i));
+        cout << s << " to " << i << " (" << dist << "): ";
+
+        if (spt.HasPathTo(i))
+        {
+            stack<DirectedEdge> pathStack(spt.PathTo(i));
+
+            while (!pathStack.empty())
+            {
+                auto edge = pathStack.top();
+
+                cout << edge.ToString() << "  ";
+
+                pathStack.pop();
+            }
+            cout << endl;
+        }
+    }
 }
 
 int main()
