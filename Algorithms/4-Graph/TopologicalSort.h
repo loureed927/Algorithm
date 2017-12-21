@@ -8,6 +8,8 @@
 #include "Digraph.h"
 #include "DirectedCycle.h"
 #include "DepthFirstOrder.h"
+#include "EdgeWeightedDirectedCycle.h"
+#include "EdgeWeightedDigraph.h"
 
 class TopologicalSort
 {
@@ -29,6 +31,24 @@ public:
         }
     }
 
+    // Extend topologicalSort for Edge-weighted Digraph.
+    TopologicalSort(EdgeWeightedDigraph& g)
+    {
+        EdgeWeightedDirectedCycle dc(g);
+        bool hasCycle = dc.HasCycle();
+        if (!hasCycle)
+        {
+            DepthFirstOrder dfo(g);
+            stack<int> reversePostOrder = dfo.ReversePostOrder();
+            while (!reversePostOrder.empty())
+            {
+                int v = reversePostOrder.top();
+                order.push_back(v);
+                reversePostOrder.pop();
+            }
+        }
+    }
+
     ~TopologicalSort()
     {
     }
@@ -36,7 +56,7 @@ public:
     // only graph is DAG(which has no cycle) can have topo-order.
     bool IsDAG()
     {
-        return !order.empty()
+        return !order.empty();
     }
 
     // vertices in topological order.

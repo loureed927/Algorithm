@@ -81,6 +81,12 @@
     <ClInclude Include="DijkstraSP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AcyclicSP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeWeightedDirectedCycle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestGraph.cpp">

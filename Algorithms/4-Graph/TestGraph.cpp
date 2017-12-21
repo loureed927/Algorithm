@@ -27,6 +27,7 @@
 // shortest paths.
 #include "EdgeWeightedDigraph.h"
 #include "DijkstraSP.h"
+#include "AcyclicSP.h"
 
 
 using namespace std;
@@ -381,11 +382,16 @@ void MST_TestClient()
 
 void SPT_TestClient()
 {
-    ifstream inputFile("tinyEWD.txt");
+    //ifstream inputFile("tinyEWD.txt");
     //ifstream inputFile("tinyspt.txt"); // simple test case to run relaxation
+    ifstream inputFile("tinyEWDAG.txt");
+
     EdgeWeightedDigraph g(inputFile);
-    int s = 0;
-    DijkstraSP spt(g, s);
+    //int s = 0;
+    //DijkstraSP spt(g, s);
+
+    int s = 5;
+    AcyclicSP spt(g, s);
 
     // output paths and weight from source to all vertices.
     for (int i = 0; i < g.Vertices(); i++)

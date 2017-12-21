@@ -71,6 +71,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AcyclicSP.h" />
     <ClInclude Include="BipartiteDetection.h" />
     <ClInclude Include="BreadthFirstPaths.h" />
     <ClInclude Include="ConnectedComponents.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="DirectedEdge.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeWeightedDigraph.h" />
+    <ClInclude Include="EdgeWeightedDirectedCycle.h" />
     <ClInclude Include="EdgeWeightedGraph.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="KosarajuSCC.h" />

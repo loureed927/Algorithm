@@ -8,6 +8,7 @@
 #include <queue>
 #include <stack>
 #include "Digraph.h"
+#include "EdgeWeightedDigraph.h"
 
 using namespace std;
 
@@ -17,6 +18,24 @@ class DepthFirstOrder
 {
 public:
     DepthFirstOrder(Digraph& g)
+    {
+        int vertices = g.Vertices();
+        marked = new bool[vertices];
+        for (int m = 0; m < vertices; m++)
+        {
+            marked[m] = false;
+        }
+
+        for (int m = 0; m < vertices; m++)
+        {
+            if (!marked[m])
+            {
+                dfs(g, m);
+            }
+        }
+    }
+
+    DepthFirstOrder(EdgeWeightedDigraph& g)
     {
         int vertices = g.Vertices();
         marked = new bool[vertices];
@@ -70,6 +89,28 @@ private:
             if (!marked[a])
             {
                 dfs(g, a);
+            }
+        }
+
+        // cache vertex in postorder after recursive calls.
+        post.push(v);
+        reversePost.push(v);
+    }
+
+    void dfs(EdgeWeightedDigraph& g, int v)
+    {
+        // to visit a vertex, marked it as having been visited.
+        marked[v] = true;
+
+        // cache vertex in preorder by adding current vertex to queue before recursive calls.
+        pre.push(v);
+
+        for (auto e : g.AdjacentToVertex(v))
+        {
+            // if adjacent vertex of v is not visited, continue with dfs.
+            if (!marked[e.To()])
+            {
+                dfs(g, e.To());
             }
         }
 
