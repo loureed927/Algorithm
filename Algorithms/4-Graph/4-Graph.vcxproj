@@ -71,6 +71,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AcyclicLP.h" />
     <ClInclude Include="AcyclicSP.h" />
     <ClInclude Include="BipartiteDetection.h" />
     <ClInclude Include="BreadthFirstPaths.h" />

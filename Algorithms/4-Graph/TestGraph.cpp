@@ -28,6 +28,7 @@
 #include "EdgeWeightedDigraph.h"
 #include "DijkstraSP.h"
 #include "AcyclicSP.h"
+#include "AcyclicLP.h"
 
 
 using namespace std;
@@ -394,6 +395,8 @@ void SPT_TestClient()
     AcyclicSP spt(g, s);
 
     // output paths and weight from source to all vertices.
+    cout << "Shortest paths from source to any reachable vertices in digraph:" << endl;
+
     for (int i = 0; i < g.Vertices(); i++)
     {
         string dist = str(boost::format("%4.2f") %spt.DistTo(i));
@@ -402,6 +405,39 @@ void SPT_TestClient()
         if (spt.HasPathTo(i))
         {
             stack<DirectedEdge> pathStack(spt.PathTo(i));
+
+            while (!pathStack.empty())
+            {
+                auto edge = pathStack.top();
+
+                cout << edge.ToString() << "  ";
+
+                pathStack.pop();
+            }
+            cout << endl;
+        }
+    }
+}
+
+void LPT_TestClient()
+{
+    ifstream inputFile("tinyEWDAG.txt");
+    EdgeWeightedDigraph g(inputFile);
+
+    int s = 5;
+    AcyclicLP paths(g, s);
+
+    // output paths and weight from source to all vertices.
+    cout << "Longest paths from source to any reachable vertices in digraph:" << endl;
+
+    for (int i = 0; i < g.Vertices(); i++)
+    {
+        string dist = str(boost::format("%4.2f") % paths.DistTo(i));
+        cout << s << " to " << i << " (" << dist << "): ";
+
+        if (paths.HasPathTo(i))
+        {
+            stack<DirectedEdge> pathStack(paths.PathTo(i));
 
             while (!pathStack.empty())
             {
@@ -441,4 +477,5 @@ int main()
 
     // spt.
     SPT_TestClient();
+    LPT_TestClient();
 }
