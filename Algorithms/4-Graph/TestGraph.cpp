@@ -29,6 +29,7 @@
 #include "DijkstraSP.h"
 #include "AcyclicSP.h"
 #include "AcyclicLP.h"
+#include "CriticalPathMethod.h"
 
 
 using namespace std;
@@ -452,6 +453,12 @@ void LPT_TestClient()
     }
 }
 
+void CPM_TestClient()
+{
+    ifstream inputFile("jobsPC.txt");
+    CriticalPathMethod::CalculateSchechule(inputFile);
+}
+
 int main()
 {
     // undirected graph.
@@ -476,6 +483,7 @@ int main()
     //MST_TestClient();
 
     // spt.
-    SPT_TestClient();
-    LPT_TestClient();
+    //SPT_TestClient();
+    //LPT_TestClient();
+    CPM_TestClient();
 }

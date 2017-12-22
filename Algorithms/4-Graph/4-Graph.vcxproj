@@ -76,6 +76,7 @@
     <ClInclude Include="BipartiteDetection.h" />
     <ClInclude Include="BreadthFirstPaths.h" />
     <ClInclude Include="ConnectedComponents.h" />
+    <ClInclude Include="CriticalPathMethod.h" />
     <ClInclude Include="CycleDetection.h" />
     <ClInclude Include="DegreesOfSeparation.h" />
     <ClInclude Include="DepthFirstOrder.h" />
