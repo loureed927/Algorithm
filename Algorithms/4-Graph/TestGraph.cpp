@@ -30,7 +30,7 @@
 #include "AcyclicSP.h"
 #include "AcyclicLP.h"
 #include "CriticalPathMethod.h"
-
+#include "BellmanFordSP.h"
 
 using namespace std;
 
@@ -459,6 +459,57 @@ void CPM_TestClient()
     CriticalPathMethod::CalculateSchechule(inputFile);
 }
 
+void BellmanFordSP_TestClient()
+{
+    //ifstream inputFile("tinyEWDn.txt");
+    ifstream inputFile("tinyEWDnc.txt");
+
+    EdgeWeightedDigraph g(inputFile);
+    int s = 0;
+    //int s = 1;
+    BellmanFordSP spt(g, s);
+
+    // output negative cycle if have.
+    if (spt.HasNegativeCycle())
+    {
+        stack<DirectedEdge> nc(spt.NegativeCycle());
+
+        cout << "This graph has negative cycle:" << endl;
+        while (!nc.empty())
+        {
+            auto edge = nc.top();
+            cout << edge.ToString() << "  ";
+            nc.pop();
+        }
+    }
+    else
+    {
+        // output paths and weight from source to all vertices.
+        cout << "Shortest paths from source to any reachable vertices in digraph:" << endl;
+
+        for (int i = 0; i < g.Vertices(); i++)
+        {
+            string dist = str(boost::format("%4.2f") % spt.DistTo(i));
+            cout << s << " to " << i << " (" << dist << "): ";
+
+            if (spt.HasPathTo(i))
+            {
+                stack<DirectedEdge> pathStack(spt.PathTo(i));
+
+                while (!pathStack.empty())
+                {
+                    auto edge = pathStack.top();
+
+                    cout << edge.ToString() << "  ";
+
+                    pathStack.pop();
+                }
+                cout << endl;
+            }
+        }
+    }
+}
+
 int main()
 {
     // undirected graph.
@@ -485,5 +536,6 @@ int main()
     // spt.
     //SPT_TestClient();
     //LPT_TestClient();
-    CPM_TestClient();
+    //CPM_TestClient();
+    BellmanFordSP_TestClient();
 }

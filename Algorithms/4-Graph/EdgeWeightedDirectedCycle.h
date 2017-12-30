@@ -77,12 +77,13 @@ private:
             // if adjacent vertex is already on callstack, then it is a cycle.
             else if (onStack[vertexTo])
             {
-                // push the path to the cycle stack.
-                for (auto i = v; i != vertexTo; i = edgeTo[vertexTo].From())
+                DirectedEdge f = e;
+                while (f.From() != vertexTo)
                 {
-                    cycle.push(edgeTo[i]);
+                    cycle.push(f);
+                    f = edgeTo[f.From()];
                 }
-                cycle.push(e);
+                cycle.push(f);
             }
         }
 
