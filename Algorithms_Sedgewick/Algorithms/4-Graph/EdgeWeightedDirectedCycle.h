@@ -84,6 +84,13 @@ private:
                     f = edgeTo[f.From()];
                 }
                 cycle.push(f);
+				
+				//// another way to collect the cycle path.
+                //for (auto i = v; i != vertexTo; i = edgeTo[i].From())
+                //{
+                //    cycle.push(edgeTo[i]);
+                //}
+                //cycle.push(e);
             }
         }
 
